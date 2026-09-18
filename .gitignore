@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.DS_Store
+.env
+
+# Indices del PoC de RAG: son derivados, se regeneran con "python rag.py --indexar"
+fase4_rag/indices/

@@ -1,0 +1,215 @@
+{
+  "_comentario": "Base de datos de prueba de EcoMarket. Actua como la fuente de verdad que se inyecta en el contexto del prompt. En produccion esto NO seria un JSON estatico sino una llamada a la API/BD transaccional (ver fase1_seleccion_modelo.md).",
+  "generado": "2026-09-10",
+  "politica_devolucion_dias": 30,
+  "pedidos": [
+    {
+      "id_pedido": "12345",
+      "cliente": "Ana Lucia Moreno",
+      "fecha_compra": "2026-09-01",
+      "estado": "EN_TRANSITO",
+      "transportadora": "Servientrega",
+      "numero_guia": "SE-884213770",
+      "url_rastreo": "https://ecomarket.co/rastreo/SE-884213770",
+      "fecha_estimada_entrega": "2026-09-12",
+      "retrasado": false,
+      "items": [
+        {"sku": "ECO-BOT-500", "nombre": "Botella termica de acero 500ml", "categoria": "DURADERO", "cantidad": 1, "precio_unitario": 89000}
+      ],
+      "total": 89000
+    },
+    {
+      "id_pedido": "12346",
+      "cliente": "Carlos Andres Rojas",
+      "fecha_compra": "2026-08-28",
+      "estado": "RETRASADO",
+      "transportadora": "Coordinadora",
+      "numero_guia": "CO-119002841",
+      "url_rastreo": "https://ecomarket.co/rastreo/CO-119002841",
+      "fecha_estimada_entrega": "2026-09-14",
+      "retrasado": true,
+      "motivo_retraso": "Cierre vial en la via Buga-Buenaventura",
+      "items": [
+        {"sku": "ECO-DET-1L", "nombre": "Detergente biodegradable 1L", "categoria": "DURADERO", "cantidad": 3, "precio_unitario": 32000}
+      ],
+      "total": 96000
+    },
+    {
+      "id_pedido": "12347",
+      "cliente": "Maria Fernanda Ospina",
+      "fecha_compra": "2026-09-05",
+      "estado": "ENTREGADO",
+      "transportadora": "Servientrega",
+      "numero_guia": "SE-884219903",
+      "url_rastreo": "https://ecomarket.co/rastreo/SE-884219903",
+      "fecha_estimada_entrega": "2026-09-08",
+      "fecha_entrega_real": "2026-09-08",
+      "retrasado": false,
+      "items": [
+        {"sku": "ECO-CEP-BAM", "nombre": "Cepillo dental de bambu x4", "categoria": "HIGIENE_PERSONAL", "cantidad": 2, "precio_unitario": 24000}
+      ],
+      "total": 48000
+    },
+    {
+      "id_pedido": "12348",
+      "cliente": "Jorge Ivan Castaño",
+      "fecha_compra": "2026-09-09",
+      "estado": "EN_PREPARACION",
+      "transportadora": null,
+      "numero_guia": null,
+      "url_rastreo": null,
+      "fecha_estimada_entrega": "2026-09-16",
+      "retrasado": false,
+      "items": [
+        {"sku": "ECO-CAF-500", "nombre": "Cafe organico molido 500g", "categoria": "PERECEDERO", "cantidad": 2, "precio_unitario": 38000},
+        {"sku": "ECO-MIE-350", "nombre": "Miel de abejas cruda 350g", "categoria": "PERECEDERO", "cantidad": 1, "precio_unitario": 45000}
+      ],
+      "total": 121000
+    },
+    {
+      "id_pedido": "12349",
+      "cliente": "Laura Catalina Diaz",
+      "fecha_compra": "2026-07-20",
+      "estado": "ENTREGADO",
+      "transportadora": "Coordinadora",
+      "numero_guia": "CO-118774120",
+      "url_rastreo": "https://ecomarket.co/rastreo/CO-118774120",
+      "fecha_estimada_entrega": "2026-07-24",
+      "fecha_entrega_real": "2026-07-23",
+      "retrasado": false,
+      "items": [
+        {"sku": "ECO-MOC-M", "nombre": "Mochila de algodon reciclado", "categoria": "DURADERO", "cantidad": 1, "precio_unitario": 149000}
+      ],
+      "total": 149000
+    },
+    {
+      "id_pedido": "12350",
+      "cliente": "Andres Felipe Zapata",
+      "fecha_compra": "2026-09-06",
+      "estado": "EN_TRANSITO",
+      "transportadora": "Interrapidisimo",
+      "numero_guia": "IR-553001982",
+      "url_rastreo": "https://ecomarket.co/rastreo/IR-553001982",
+      "fecha_estimada_entrega": "2026-09-11",
+      "retrasado": false,
+      "items": [
+        {"sku": "ECO-JAB-3", "nombre": "Jabon solido artesanal x3", "categoria": "HIGIENE_PERSONAL", "cantidad": 1, "precio_unitario": 36000},
+        {"sku": "ECO-ESP-KIT", "nombre": "Kit de esponjas vegetales", "categoria": "DURADERO", "cantidad": 1, "precio_unitario": 28000}
+      ],
+      "total": 64000
+    },
+    {
+      "id_pedido": "12351",
+      "cliente": "Diana Marcela Suarez",
+      "fecha_compra": "2026-09-02",
+      "estado": "CANCELADO",
+      "transportadora": null,
+      "numero_guia": null,
+      "url_rastreo": null,
+      "fecha_estimada_entrega": null,
+      "retrasado": false,
+      "motivo_cancelacion": "Solicitud del cliente antes del despacho",
+      "items": [
+        {"sku": "ECO-VEL-SOJ", "nombre": "Vela de soya aromatica", "categoria": "DURADERO", "cantidad": 2, "precio_unitario": 42000}
+      ],
+      "total": 84000
+    },
+    {
+      "id_pedido": "12352",
+      "cliente": "Ricardo Alberto Nieto",
+      "fecha_compra": "2026-09-07",
+      "estado": "ENTREGADO",
+      "transportadora": "Servientrega",
+      "numero_guia": "SE-884225514",
+      "url_rastreo": "https://ecomarket.co/rastreo/SE-884225514",
+      "fecha_estimada_entrega": "2026-09-10",
+      "fecha_entrega_real": "2026-09-09",
+      "retrasado": false,
+      "items": [
+        {"sku": "ECO-PAN-REU", "nombre": "Paños reutilizables de cocina x6", "categoria": "DURADERO", "cantidad": 1, "precio_unitario": 55000}
+      ],
+      "total": 55000
+    },
+    {
+      "id_pedido": "12353",
+      "cliente": "Sandra Patricia Gil",
+      "fecha_compra": "2026-08-30",
+      "estado": "DEVOLUCION_EN_CURSO",
+      "transportadora": "Coordinadora",
+      "numero_guia": "CO-119117003",
+      "url_rastreo": "https://ecomarket.co/rastreo/CO-119117003",
+      "fecha_estimada_entrega": "2026-09-03",
+      "fecha_entrega_real": "2026-09-03",
+      "retrasado": false,
+      "motivo_devolucion": "Producto llego con la tapa rota",
+      "items": [
+        {"sku": "ECO-TER-1L", "nombre": "Termo de acero 1L", "categoria": "DURADERO", "cantidad": 1, "precio_unitario": 132000}
+      ],
+      "total": 132000
+    },
+    {
+      "id_pedido": "12354",
+      "cliente": "Oscar Mauricio Lopez",
+      "fecha_compra": "2026-09-08",
+      "estado": "EN_TRANSITO",
+      "transportadora": "Interrapidisimo",
+      "numero_guia": "IR-553007741",
+      "url_rastreo": "https://ecomarket.co/rastreo/IR-553007741",
+      "fecha_estimada_entrega": "2026-09-13",
+      "retrasado": false,
+      "items": [
+        {"sku": "ECO-FRU-MIX", "nombre": "Mix de frutos secos organicos 1kg", "categoria": "PERECEDERO", "cantidad": 1, "precio_unitario": 78000}
+      ],
+      "total": 78000
+    },
+    {
+      "id_pedido": "12355",
+      "cliente": "Paula Andrea Bermudez",
+      "fecha_compra": "2026-06-15",
+      "estado": "ENTREGADO",
+      "transportadora": "Servientrega",
+      "numero_guia": "SE-883990012",
+      "url_rastreo": "https://ecomarket.co/rastreo/SE-883990012",
+      "fecha_estimada_entrega": "2026-06-19",
+      "fecha_entrega_real": "2026-06-18",
+      "retrasado": false,
+      "items": [
+        {"sku": "ECO-BOT-750", "nombre": "Botella termica de acero 750ml", "categoria": "DURADERO", "cantidad": 1, "precio_unitario": 105000}
+      ],
+      "total": 105000
+    },
+    {
+      "id_pedido": "12356",
+      "cliente": "Hernan Dario Valencia",
+      "fecha_compra": "2026-09-04",
+      "estado": "RETRASADO",
+      "transportadora": "Coordinadora",
+      "numero_guia": "CO-119150887",
+      "url_rastreo": "https://ecomarket.co/rastreo/CO-119150887",
+      "fecha_estimada_entrega": "2026-09-15",
+      "retrasado": true,
+      "motivo_retraso": "Demora en el centro de distribucion de Bogota",
+      "items": [
+        {"sku": "ECO-SHA-SOL", "nombre": "Shampoo solido sin plastico", "categoria": "HIGIENE_PERSONAL", "cantidad": 2, "precio_unitario": 34000},
+        {"sku": "ECO-CAF-500", "nombre": "Cafe organico molido 500g", "categoria": "PERECEDERO", "cantidad": 1, "precio_unitario": 38000}
+      ],
+      "total": 106000
+    },
+    {
+      "id_pedido": "12357",
+      "cliente": "Oscar Mauricio Lopez",
+      "fecha_compra": "2026-09-01",
+      "estado": "ENTREGADO",
+      "transportadora": "Interrapidisimo",
+      "numero_guia": "IR-552998410",
+      "url_rastreo": "https://ecomarket.co/rastreo/IR-552998410",
+      "fecha_estimada_entrega": "2026-09-06",
+      "fecha_entrega_real": "2026-09-06",
+      "retrasado": false,
+      "items": [
+        {"sku": "ECO-FRU-MIX", "nombre": "Mix de frutos secos organicos 1kg", "categoria": "PERECEDERO", "cantidad": 1, "precio_unitario": 78000}
+      ],
+      "total": 78000
+    }
+  ]
+}

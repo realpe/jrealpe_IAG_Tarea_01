@@ -1,0 +1,3 @@
+# Las respuestas generadas por run_prompts.py se guardan aqui.
+# Deben versionarse en Git: la rubrica exige que el repositorio permita
+# ejecutar el codigo y obtener respuestas ante los prompts.

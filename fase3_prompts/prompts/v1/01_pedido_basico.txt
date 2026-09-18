@@ -1,0 +1,1 @@
+Dame el estado del pedido {{id_pedido}}.

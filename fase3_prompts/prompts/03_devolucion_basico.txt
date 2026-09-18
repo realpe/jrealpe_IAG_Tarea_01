@@ -1,0 +1,1 @@
+Un cliente quiere devolver el pedido {{id_pedido}}. Dile como hacerlo.
