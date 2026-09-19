@@ -206,6 +206,42 @@ def calibrar(casos: list[dict]) -> None:
             print(f"{uc:7.2f} {um:7.2f} {ok:>6d}/{len(no_escalan)} {ins:>10d} {deg:>11d}")
 
 
+def volcar_json(casos, preds, resumen) -> None:
+    """Guarda el resultado en JSON para que el dashboard no repita las cifras a mano.
+
+    Un numero copiado a mano en dos sitios se desincroniza en la primera
+    correccion. El dashboard lee este archivo; si no existe, avisa en lugar de
+    mostrar datos viejos.
+    """
+    import datetime as _dt
+    matriz = {r: {p: 0 for p in CARRILES} for r in CARRILES}
+    grupos: dict[str, list[int]] = {}
+    for c, p in zip(casos, preds):
+        matriz[c["carril"]][p["carril"]] += 1
+        g = grupos.setdefault(c.get("grupo", "sin_grupo"), [0, 0])
+        g[1] += 1
+        g[0] += int(c["carril"] == p["carril"])
+
+    destino = AQUI / "modelo" / "resultados_evaluacion.json"
+    destino.parent.mkdir(exist_ok=True)
+    destino.write_text(json.dumps({
+        "generado": _dt.datetime.now().strftime("%Y-%m-%d %H:%M"),
+        "carriles": CARRILES,
+        "matriz": matriz,
+        "grupos": grupos,
+        "total": resumen["total"],
+        "aciertos": resumen["aciertos"],
+        "por_capa": {"0": sum(1 for p in preds if p["capa"] == 0),
+                     "1": sum(1 for p in preds if p["capa"] == 1)},
+        "casos": [{"texto": c["texto"], "real": c["carril"], "predicho": p["carril"],
+                   "grupo": c.get("grupo"), "capa": p["capa"],
+                   "intencion": p.get("intencion"), "confianza": p.get("confianza"),
+                   "texto_propio": bool(c.get("texto_propio"))}
+                  for c, p in zip(casos, preds)],
+    }, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"\n-> {destino.name}")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--calibrar", action="store_true")
@@ -233,8 +269,9 @@ def main() -> None:
     print(f"Umbrales: confianza {capa1_semantica.UMBRAL_CONFIANZA} · "
           f"margen {capa1_semantica.UMBRAL_MARGEN}\n")
     preds = clasificar_completo(casos, clf)
-    informe(casos, preds)
+    resumen = informe(casos, preds)
     detalle_nucleo_duro(casos, preds)
+    volcar_json(casos, preds, resumen)
 
 
 if __name__ == "__main__":

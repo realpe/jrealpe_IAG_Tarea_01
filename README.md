@@ -199,6 +199,7 @@ fine-tuning**. Justificación completa en la Fase 1.
 │   ├── canales.py                 # Lista blanca de canales: derivación y validación de salida
 │   ├── construir_mapeo.py         # Traduce las 27 intenciones a carriles de EcoMarket
 │   ├── sonda_confianza.py         # Pone a prueba si la confianza mide algo
+│   ├── brecha_dominio.py          # Entrenamiento vs. dominio real, medido
 │   ├── politica_v2.py             # Política corregida y curva de costo
 │   ├── evaluar_clasificador.py    # Matriz de confusión y enrutamiento inseguro
 │   └── datos/
@@ -413,6 +414,7 @@ deterministas para el núcleo duro, y centroides de intención sobre embeddings 
 cd fase5_clasificador
 python capa1_semantica.py construir
 python sonda_confianza.py
+python brecha_dominio.py
 python politica_v2.py
 ```
 
@@ -421,14 +423,16 @@ python politica_v2.py
 Los centroides se entrenaron con [Bitext Customer Support](https://huggingface.co/datasets/bitext/Bitext-customer-support-llm-chatbot-training-dataset)
 en español: 24.184 ejemplos, 27 intenciones, licencia CDLA-Sharing-1.0.
 
-| Grupo | mediana de similitud | p25 |
-| :--- | :---: | :---: |
-| Ejemplos del propio Bitext, no usados en los centroides | **0,857** | 0,814 |
-| Casos de prueba de EcoMarket | — | máximo absoluto **0,802** |
+| Conjunto | n | p5 | p25 | mediana |
+| :--- | ---: | :---: | :---: | :---: |
+| Entrenamiento (Bitext) | 5.400 | 0,748 | 0,813 | **0,857** |
+| Prueba (EcoMarket) | 43 | 0,687 | 0,722 | **0,744** |
 
-**Ningún caso de prueba alcanza el cuartil inferior de la distribución de entrenamiento.** El corpus es
-comercio electrónico genérico traducido del inglés; los casos son español colombiano natural. Aun sin
-exigir ningún margen de confianza, el carril automático solo acierta **3 de 12**.
+**La mediana de los casos de prueba queda por debajo del percentil 5 del entrenamiento.** El caso
+típico que el sistema va a recibir puntúa peor que el 95 % de los ejemplos con los que se construyeron
+sus centroides, y solo 1 de 43 alcanza el p25. El corpus es comercio electrónico genérico traducido del
+inglés; los casos son español colombiano natural. Aun sin exigir ningún margen de confianza, el carril
+automático solo acierta **3 de 12**.
 
 *Existe un dataset público* no es lo mismo que *existen datos de entrenamiento utilizables*. Esa
 distinción, medida en vez de supuesta, es la justificación de por qué una empresa real necesita
@@ -441,13 +445,39 @@ etiquetar sus propios tickets.
 | Núcleo duro **explícito** | **6/6** | — |
 | Núcleo duro **parafraseado** | **0/9** | **0/9** |
 
-*"Mi bebé se llevó el producto a la boca y lleva toda la tarde llorando y devolviendo"* obtuvo **0,774
-de confianza** clasificado como `delivery_period`. El mensaje está *dentro* de distribución como texto
+*"Mi bebé se llevó el producto a la boca y duró la tarde llorando"* obtuvo **0,788 de confianza**
+clasificado como `delivery_period`, el valor más alto de los nueve casos críticos. El mensaje está *dentro* de distribución como texto
 —es una queja sobre un producto— y fuera como carril. Lo que lo distingue es que hubo daño a una
 persona, y eso es un detalle del contenido, no el tema que el embedding codifica.
 
-La política corregida logra lo único que podía lograr: **cero casos de salud en el carril automático**,
-a costa de 4,6 puntos de exactitud y de enviar 34 de 37 casos a revisión humana.
+### El margen se mide entre carriles, no entre intenciones
+
+Probar la consola en vivo con una pregunta cualquiera destapó un defecto de la política de decisión:
+
+```
+"hola, cuanto tiempo tengo para hacer una devolucion"
+  delivery_period      0,790  automatico   <- elegida, intención EQUIVOCADA
+  check_refund_policy  0,759  automatico   <- la correcta
+  track_refund         0,758  automatico
+  get_refund           0,744  copiloto     <- primera de otro carril
+```
+
+Las tres primeras coinciden en el carril: el clasificador se equivocó de intención y aun así el carril
+estaba bien. La política medía la duda entre las dos primeras (0,031) y degradaba a copiloto. **Estaba
+midiendo la duda entre intenciones cuando la decisión es sobre carriles.**
+
+| Política | Exactitud | Brecha 2 | Automáticos correctos |
+| :--- | :---: | :---: | :---: |
+| v1 — umbrales globales | 44,2 % | **1** | 3/12 |
+| v2 — umbral por intención | 41,9 % | 0 | 1/12 |
+| **v3 — margen entre carriles** | **46,5 %** | **0** | 2/12 |
+
+La v3 compara contra la mejor candidata de un carril distinto. Gana en las dos condiciones fijadas
+antes de medir: **cero casos de salud en el carril automático** y la mejor exactitud de las tres.
+
+Que el clasificador confunda `delivery_period` con `check_refund_policy` no le cuesta nada a EcoMarket,
+porque las dos se responden igual. Que confunda `check_refund_policy` con `get_refund` sí, porque una
+consulta la política y la otra compromete dinero. Las políticas anteriores penalizaban las dos igual.
 
 ### La lista blanca cierra el hallazgo 8.3a
 

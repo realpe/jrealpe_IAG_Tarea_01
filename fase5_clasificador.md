@@ -45,7 +45,7 @@ después, la medición no correspondería a lo que el sistema hace en producció
 | `canales.py` | Lista blanca de canales oficiales: derivación y validación de salida |
 | `sonda_confianza.py` | Pone a prueba si la confianza del clasificador mide algo |
 | `brecha_dominio.py` | Compara la distribución de entrenamiento con la de los casos reales |
-| `politica_v2.py` | Política de decisión corregida y comparación contra la primera |
+| `politica_v2.py` | Las tres políticas de decisión, su comparación y la curva de costo |
 | `evaluar_clasificador.py` | Matriz de confusión y métrica de enrutamiento inseguro |
 
 ---
@@ -172,6 +172,7 @@ semántica recupera alguno.
 | :--- | :---: | :---: | :---: | :---: |
 | **v1** — umbrales globales (confianza 0,60 · margen 0,03) | 44,2 % | 9 | **1** | 31/37 |
 | **v2** — umbral por intención + coincidencia positiva | 41,9 % | 9 | **0** | 35/37 |
+| **v3** — el margen se mide entre carriles | **46,5 %** | 9 | **0** | 33/37 |
 
 La matriz de confusión de la v1 muestra dónde está el problema:
 
@@ -189,6 +190,8 @@ El único carril con buen recall es `copiloto`, y lo tiene porque es donde cae t
 inseguro* lo escondía: contaba igual mandar un caso de salud a automático que mandarlo a copiloto. Con
 el conteo corregido, la v2 logra **lo único que podía lograr: ningún caso de salud llega al carril
 automático**, a costa de 2,3 puntos de exactitud.
+
+La **v3 es la política vigente** y nació de probar la consola en vivo; §5.4 la desarrolla.
 
 La v2 también corrige un caso que el margen no veía: *"es la segunda vez que me pasa lo mismo con
 ustedes, espero una solución real"* iba al carril **automático** con la v1 —un cliente reincidente
@@ -209,15 +212,64 @@ atípicos. El número sale de los datos.
 de cualquier mensaje que cayera cerca de un centroide automático. Es el único carril sin supervisión
 humana, así que llegar ahí debería costar más que llegar a copiloto.
 
+### 5.4 La v3: el margen se mide entre carriles, no entre intenciones
+
+Esta política salió de escribir un caso cualquiera en la consola de la Fase 5 y mirar el detalle:
+
+```
+"hola, cuanto tiempo tengo para hacer una devolucion"
+
+  delivery_period       0,790  automatico   <- elegida, y es la intención EQUIVOCADA
+  check_refund_policy   0,759  automatico   <- la correcta
+  track_refund          0,758  automatico
+  get_refund            0,744  copiloto     <- primera candidata de otro carril
+
+  v2: margen 0,790 − 0,759 = 0,031  ->  degrada a copiloto
+```
+
+La pregunta es por el plazo de *devolución* y ganó `delivery_period`, que es el plazo de *entrega*.
+El embedding vio «plazo» y se quedó con el tema equivocado: el hallazgo de §7.2 con nombre y número.
+
+Pero **las tres primeras candidatas coinciden en el carril**. El clasificador se equivocó de intención
+y aun así el carril estaba bien. La v2 lo degradó igual, y ahí estaba el defecto:
+
+> **La v2 mide la duda entre intenciones cuando la decisión es sobre carriles.** Si las dos candidatas
+> más cercanas van al mismo sitio, la distancia entre ellas no dice nada sobre el riesgo de enrutar
+> mal: solo dice que el modelo duda entre dos formas de nombrar lo mismo, y esa duda es inofensiva.
+
+La formulación correcta compara contra la mejor candidata de un carril **distinto**:
+
+```
+margen_carril = similitud(mejor) − max{ similitud(i) : carril(i) ≠ carril(mejor) }
+```
+
+En el caso de arriba: 0,790 − 0,744 = **0,046** contra `get_refund`. El caso concreto sigue yendo a
+copiloto, pero por la razón correcta: la duda real es *¿consulta la política o pide el reembolso?*, y
+esa sí compromete dinero.
+
+**Medido sobre los 43 casos, la v3 gana en las dos condiciones** fijadas antes de medir: mejor
+exactitud de las tres y cero errores de dos niveles. Dos casos vuelven a su carril correcto —*«cuánto
+se demora el reembolso»* a automático y *«cómo cambio el correo de mi perfil»* a derivación— y ninguno
+se rompe.
+
+El argumento de fondo vale más que los dos puntos de exactitud: que el clasificador no distinga
+`delivery_period` de `check_refund_policy` es un error de etiqueta que no le cuesta nada a EcoMarket,
+porque las dos se responden igual. Que no distinga `check_refund_policy` de `get_refund` sí, porque una
+consulta la política y la otra compromete dinero. **La v2 penalizaba las dos por igual.**
+
 ### 5.3 El costo de la seguridad, medido
 
 | Margen exigido al carril automático | Aciertos | Brecha 2 | Casos automáticos correctos |
 | :---: | :---: | :---: | :---: |
 | 0,00 | 14/37 | 1 | **3/12** |
 | 0,03 | 14/37 | 1 | **3/12** |
-| 0,04 | 12/37 | 1 | 1/12 |
-| 0,05 | 12/37 | 0 | 1/12 |
-| 0,07 | 11/37 | 0 | 0/12 |
+| 0,04 | 15/37 | 1 | 3/12 |
+| **0,05** | **14/37** | **0** | **2/12** |
+| 0,07 | 12/37 | 0 | 0/12 |
+
+En 0,04 hay un acierto más y la brecha 2 sube a 1. **0,05 es el margen más bajo que mantiene los
+incidentes en cero**, así que el valor deja de ser una elección a ojo y pasa a ser el resultado de
+aplicar el criterio de aceptación a la curva.
 
 Esta tabla es la que cambia la conclusión de la fase. **Aun sin exigir ningún margen, el carril
 automático solo acierta 3 de 12.** El umbral no es lo que está rompiendo la automatización. El
@@ -335,7 +387,7 @@ python construir_mapeo.py         # tabla intención -> carril
 python capa1_semantica.py construir
 python sonda_confianza.py         # ¿mide algo la confianza?
 python brecha_dominio.py          # ¿coincide el dominio de entrenamiento con el real?
-python politica_v2.py             # comparación v1/v2 y curva de costo
+python politica_v2.py             # comparación v1/v2/v3 y curva de costo
 python evaluar_clasificador.py    # matriz de confusión
 python canales.py                 # lista blanca y validación de salida
 ```
@@ -383,6 +435,12 @@ compromiso sí.
 
 **La clase `humano_exclusivo` depende por completo de la capa 0.** No hay respaldo. Un caso crítico
 redactado sin los términos de la lista se pierde, y eso está medido en 0/9.
+
+**Un error de método que quedó documentado en el código.** La primera versión del comparador tenía el
+barrido de umbrales escrito dos veces —uno para imprimir y otro para el JSON—, y al introducir la v3
+solo se actualizó uno. La tabla impresa quedó rotulada «política v3» mostrando cifras de la v2, y la
+inconsistencia se detectó porque el total del barrido no cuadraba con el de la comparación. Se unificó
+en una sola función `barrer()`: dos copias de un cálculo se desincronizan en el primer cambio.
 
 **El monto y la reincidencia se leen de campos simulados.** En producción vienen de la base
 transaccional y esa integración no está implementada.
