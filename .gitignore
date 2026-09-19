@@ -10,4 +10,26 @@ fase4_rag/indices/
 
 # Fase 5: el dataset publico no se versiona (6,9 MB, licencia CDLA-Sharing-1.0)
 fase5_clasificador/datos/bitext_es.parquet
-fase5_clasificador/modelo/
+
+# Se excluye el CONTENIDO de modelo/ y no el directorio: git no permite volver a
+# incluir un archivo cuyo directorio padre esta excluido, y abajo hay excepciones.
+fase5_clasificador/modelo/*
+
+# PERO los resultados medidos si se versionan, y la distincion importa.
+#
+# Los centroides y la cache de embeddings son DERIVADOS: se regeneran de forma
+# determinista a partir de lo que ya esta en el repositorio.
+#
+# Los JSON de resultados son MEDICIONES. resultados_comparacion.json contiene el
+# veredicto del modelo para cada uno de los 43 casos con su justificacion, y eso
+# depende de qwen3:14b corriendo localmente —que no esta versionado y puede
+# cambiar de version—. Nadie puede regenerarlos identicos. Son las cifras que
+# cita el informe, pesan ~45 KB, y sin ellos el trabajo pide que le crean en
+# lugar de mostrar la evidencia.
+!fase5_clasificador/modelo/brecha_dominio.json
+!fase5_clasificador/modelo/umbrales_por_intencion.json
+!fase5_clasificador/modelo/resultados_evaluacion.json
+!fase5_clasificador/modelo/resultados_politica.json
+!fase5_clasificador/modelo/resultados_canales.json
+!fase5_clasificador/modelo/resultados_comparacion.json
+!fase5_clasificador/modelo/resultados_hibrido.json

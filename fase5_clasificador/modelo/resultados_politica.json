@@ -1,0 +1,153 @@
+{
+ "generado": "2026-09-19 13:52",
+ "umbrales": {
+  "margen_automatico": 0.05,
+  "margen_general": 0.03
+ },
+ "v1": {
+  "aciertos": 19,
+  "total": 43,
+  "brecha1": 9,
+  "brecha2": 1,
+  "copiloto": 31,
+  "evaluados": 37
+ },
+ "v2": {
+  "aciertos": 18,
+  "total": 43,
+  "brecha1": 9,
+  "brecha2": 0,
+  "copiloto": 35,
+  "evaluados": 37
+ },
+ "v3": {
+  "aciertos": 20,
+  "total": 43,
+  "brecha1": 9,
+  "brecha2": 0,
+  "copiloto": 33,
+  "evaluados": 37
+ },
+ "barrido": [
+  {
+   "margen": 0.0,
+   "aciertos": 14,
+   "brecha2": 1,
+   "auto_ok": 3,
+   "auto_total": 12,
+   "evaluados": 37
+  },
+  {
+   "margen": 0.02,
+   "aciertos": 14,
+   "brecha2": 1,
+   "auto_ok": 3,
+   "auto_total": 12,
+   "evaluados": 37
+  },
+  {
+   "margen": 0.03,
+   "aciertos": 14,
+   "brecha2": 1,
+   "auto_ok": 3,
+   "auto_total": 12,
+   "evaluados": 37
+  },
+  {
+   "margen": 0.04,
+   "aciertos": 15,
+   "brecha2": 1,
+   "auto_ok": 3,
+   "auto_total": 12,
+   "evaluados": 37
+  },
+  {
+   "margen": 0.05,
+   "aciertos": 14,
+   "brecha2": 0,
+   "auto_ok": 2,
+   "auto_total": 12,
+   "evaluados": 37
+  },
+  {
+   "margen": 0.07,
+   "aciertos": 12,
+   "brecha2": 0,
+   "auto_ok": 0,
+   "auto_total": 12,
+   "evaluados": 37
+  }
+ ],
+ "diferencias": [
+  {
+   "texto": "Cuánto se demora el reembolso",
+   "real": "automatico",
+   "v2": "copiloto",
+   "v3": "automatico",
+   "razon": null
+  },
+  {
+   "texto": "Cómo hago para cambiar el correo de mi perfil",
+   "real": "derivacion",
+   "v2": "copiloto",
+   "v3": "derivacion",
+   "razon": null
+  }
+ ],
+ "nucleo_duro": [
+  {
+   "texto": "Desde que usé la crema tengo la piel roja y fue necesario salir en la noche",
+   "carril": "copiloto",
+   "intencion": "recover_password",
+   "confianza": 0.716
+  },
+  {
+   "texto": "Mi bebé se llevó el producto a la boca y duro la tarde llorando, debi llevarlo corriendo",
+   "carril": "copiloto",
+   "intencion": "delivery_period",
+   "confianza": 0.788
+  },
+  {
+   "texto": "Comí eso y pasé la noche muy mal del estómago, tenia que tener algo",
+   "carril": "copiloto",
+   "intencion": "track_refund",
+   "confianza": 0.744
+  },
+  {
+   "texto": "Voy a tener que buscar asesoría de alguien que sepa de leyes para esto",
+   "carril": "copiloto",
+   "intencion": "contact_human_agent",
+   "confianza": 0.709
+  },
+  {
+   "texto": "Esto lo voy a poner en manos de quien corresponda ante las autoridades",
+   "carril": "copiloto",
+   "intencion": "contact_human_agent",
+   "confianza": 0.738
+  },
+  {
+   "texto": "Mi señora quedó bastante mal después de probar eso y tuvimos que pedir servicio",
+   "carril": "copiloto",
+   "intencion": "review",
+   "confianza": 0.785
+  },
+  {
+   "texto": "Tengo el cuerpo brotado y el único cambio fue ese producto",
+   "carril": "copiloto",
+   "intencion": "delivery_period",
+   "confianza": 0.776
+  },
+  {
+   "texto": "Ya hablé con alguien que me está asesorando sobre mis derechos como comprador",
+   "carril": "copiloto",
+   "intencion": "delivery_period",
+   "confianza": 0.758
+  },
+  {
+   "texto": "El producto trae algo que a mi hijo le hace daño y no venía advertido en la etiqueta",
+   "carril": "copiloto",
+   "intencion": "review",
+   "confianza": 0.782
+  }
+ ]
+}

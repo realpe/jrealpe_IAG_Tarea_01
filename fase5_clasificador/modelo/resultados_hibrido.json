@@ -1,0 +1,517 @@
+{
+ "criterio": "escala al LLM cuando decidir_v3 degrada por piso o por margen",
+ "modelo": "qwen3:14b",
+ "A_centroides": {
+  "aciertos": 20,
+  "total": 43,
+  "brecha1": 9,
+  "brecha2": 0,
+  "copiloto": 33
+ },
+ "B_prompt": {
+  "aciertos": 36,
+  "total": 43,
+  "brecha1": 2,
+  "brecha2": 0,
+  "copiloto": 16
+ },
+ "H_hibrido": {
+  "aciertos": 36,
+  "total": 43,
+  "brecha1": 2,
+  "brecha2": 0,
+  "copiloto": 16
+ },
+ "escalados": 33,
+ "fraccion_escalada": 0.767,
+ "segundos_por_caso": 11.24,
+ "por_decisor": {
+  "capa 0": {
+   "aciertos": 6,
+   "total": 6
+  },
+  "centroide (sin duda)": {
+   "aciertos": 4,
+   "total": 4
+  },
+  "LLM (por duda)": {
+   "aciertos": 26,
+   "total": 33
+  }
+ },
+ "detalle": [
+  {
+   "texto": "Buenas tardes, quiero saber dónde se encuentra mi pedido",
+   "real": "automatico",
+   "grupo": "comun",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "el carril automatico exige margen de carril >= 0.05 y hay 0.027 contra recover_password (derivacion)",
+   "centroide": "copiloto",
+   "llm": "automatico",
+   "hibrido": "automatico"
+  },
+  {
+   "texto": "Hace cinco días compré y todavía no general el envio",
+   "real": "automatico",
+   "grupo": "comun",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "por debajo del piso de set_up_shipping_address (0.727 < 0.815)",
+   "centroide": "copiloto",
+   "llm": "automatico",
+   "hibrido": "automatico"
+  },
+  {
+   "texto": "Me pueden dar el número de guía dela compra 12345",
+   "real": "automatico",
+   "grupo": "comun",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "el carril automatico exige margen de carril >= 0.05 y hay 0.009 contra change_order (copiloto)",
+   "centroide": "copiloto",
+   "llm": "automatico",
+   "hibrido": "automatico"
+  },
+  {
+   "texto": "¿Cuándo llega mi pedido?",
+   "real": "automatico",
+   "grupo": "comun",
+   "capa0": false,
+   "dudoso": false,
+   "razon_v3": null,
+   "centroide": "automatico",
+   "llm": "automatico",
+   "hibrido": "automatico"
+  },
+  {
+   "texto": "El pedido esta retrasado, qué pasó",
+   "real": "automatico",
+   "grupo": "comun",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "por debajo del piso de check_refund_policy (0.718 < 0.753)",
+   "centroide": "copiloto",
+   "llm": "automatico",
+   "hibrido": "automatico"
+  },
+  {
+   "texto": "Cuántos días tengo para devolver un producto",
+   "real": "automatico",
+   "grupo": "comun",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "margen de carril bajo (0.008 contra delivery_period (automatico))",
+   "centroide": "copiloto",
+   "llm": "automatico",
+   "hibrido": "automatico"
+  },
+  {
+   "texto": "Quiero devolver un termo que no he usado",
+   "real": "automatico",
+   "grupo": "comun",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "por debajo del piso de track_refund (0.745 < 0.753)",
+   "centroide": "copiloto",
+   "llm": "copiloto",
+   "hibrido": "copiloto"
+  },
+  {
+   "texto": "Los paños me llegaron rotos, quiero cambio",
+   "real": "automatico",
+   "grupo": "comun",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "por debajo del piso de recover_password (0.707 < 0.722)",
+   "centroide": "copiloto",
+   "llm": "copiloto",
+   "hibrido": "copiloto"
+  },
+  {
+   "texto": "Desde que valor de compra hay envío gratis",
+   "real": "automatico",
+   "grupo": "comun",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "por debajo del piso de review (0.744 < 0.748)",
+   "centroide": "copiloto",
+   "llm": "automatico",
+   "hibrido": "automatico"
+  },
+  {
+   "texto": "Cuánto se demora el reembolso",
+   "real": "automatico",
+   "grupo": "comun",
+   "capa0": false,
+   "dudoso": false,
+   "razon_v3": null,
+   "centroide": "automatico",
+   "llm": "automatico",
+   "hibrido": "automatico"
+  },
+  {
+   "texto": "Me llegó un producto que no pedí",
+   "real": "automatico",
+   "grupo": "comun",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "el carril automatico exige margen de carril >= 0.05 y hay 0.011 contra place_order (derivacion)",
+   "centroide": "copiloto",
+   "llm": "copiloto",
+   "hibrido": "copiloto"
+  },
+  {
+   "texto": "Estoy molesto, el pedido llegó tres días tarde y nadie me notifico",
+   "real": "automatico",
+   "grupo": "comun",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "el carril automatico exige margen de carril >= 0.05 y hay 0.041 contra change_shipping_address (copiloto)",
+   "centroide": "copiloto",
+   "llm": "copiloto",
+   "hibrido": "copiloto"
+  },
+  {
+   "texto": "Ya pasaron los treinta días pero necesito devolverlo",
+   "real": "copiloto",
+   "grupo": "comun",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "el carril automatico exige margen de carril >= 0.05 y hay 0.039 contra get_refund (copiloto)",
+   "centroide": "copiloto",
+   "llm": "copiloto",
+   "hibrido": "copiloto"
+  },
+  {
+   "texto": "Me pueden hacer una excepción con la política de devoluciones",
+   "real": "copiloto",
+   "grupo": "comun",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "por debajo del piso de check_refund_policy (0.731 < 0.753)",
+   "centroide": "copiloto",
+   "llm": "copiloto",
+   "hibrido": "copiloto"
+  },
+  {
+   "texto": "Abrí el shampoo sólido pero no me sirvió, ¿hay algo que puedan hacer?",
+   "real": "copiloto",
+   "grupo": "comun",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "por debajo del piso de review (0.710 < 0.748)",
+   "centroide": "copiloto",
+   "llm": "copiloto",
+   "hibrido": "copiloto"
+  },
+  {
+   "texto": "Por la demora quisiera algún tipo de consideración de su parte",
+   "real": "copiloto",
+   "grupo": "comun",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "margen de carril bajo (0.020 contra contact_human_agent (copiloto))",
+   "centroide": "copiloto",
+   "llm": "copiloto",
+   "hibrido": "copiloto"
+  },
+  {
+   "texto": "El café no sabía como esperaba, ¿me pueden cambiar por otro?",
+   "real": "copiloto",
+   "grupo": "comun",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "por debajo del piso de switch_account (0.731 < 0.732)",
+   "centroide": "copiloto",
+   "llm": "copiloto",
+   "hibrido": "copiloto"
+  },
+  {
+   "texto": "Compré para regalo y la persona no lo quiso, ya pasó el plazo",
+   "real": "copiloto",
+   "grupo": "comun",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "por debajo del piso de contact_human_agent (0.737 < 0.750)",
+   "centroide": "copiloto",
+   "llm": "copiloto",
+   "hibrido": "copiloto"
+  },
+  {
+   "texto": "Es la segunda vez que me pasa lo mismo con ustedes, espero una solución real",
+   "real": "copiloto",
+   "grupo": "comun",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "por debajo del piso de track_refund (0.742 < 0.753)",
+   "centroide": "copiloto",
+   "llm": "copiloto",
+   "hibrido": "copiloto"
+  },
+  {
+   "texto": "Quiero devolver todos mis pedidos",
+   "real": "copiloto",
+   "grupo": "comun",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "por debajo del piso de check_refund_policy (0.708 < 0.753)",
+   "centroide": "copiloto",
+   "llm": "copiloto",
+   "hibrido": "copiloto"
+  },
+  {
+   "texto": "Perdí la factura y requiero devolver los articulos",
+   "real": "copiloto",
+   "grupo": "comun",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "el carril automatico exige margen de carril >= 0.05 y hay 0.000 contra place_order (derivacion)",
+   "centroide": "copiloto",
+   "llm": "copiloto",
+   "hibrido": "copiloto"
+  },
+  {
+   "texto": "El producto está bien pero me arrepentí de la compra",
+   "real": "copiloto",
+   "grupo": "comun",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "margen de carril bajo (0.005 contra delivery_period (automatico))",
+   "centroide": "copiloto",
+   "llm": "copiloto",
+   "hibrido": "copiloto"
+  },
+  {
+   "texto": "Después de comerme las almendras terminé en urgencias",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_evidente",
+   "capa0": true,
+   "dudoso": false,
+   "razon_v3": null,
+   "centroide": "humano_exclusivo",
+   "llm": "humano_exclusivo",
+   "hibrido": "humano_exclusivo"
+  },
+  {
+   "texto": "El detergente me causó una quemadura en las manos",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_evidente",
+   "capa0": true,
+   "dudoso": false,
+   "razon_v3": null,
+   "centroide": "humano_exclusivo",
+   "llm": "humano_exclusivo",
+   "hibrido": "humano_exclusivo"
+  },
+  {
+   "texto": "Voy a demandarlos si no me responden",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_evidente",
+   "capa0": true,
+   "dudoso": false,
+   "razon_v3": null,
+   "centroide": "humano_exclusivo",
+   "llm": "humano_exclusivo",
+   "hibrido": "humano_exclusivo"
+  },
+  {
+   "texto": "Esto lo llevo a la Superintendencia",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_evidente",
+   "capa0": true,
+   "dudoso": false,
+   "razon_v3": null,
+   "centroide": "humano_exclusivo",
+   "llm": "humano_exclusivo",
+   "hibrido": "humano_exclusivo"
+  },
+  {
+   "texto": "Mi abogado ya está enterado del caso",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_evidente",
+   "capa0": true,
+   "dudoso": false,
+   "razon_v3": null,
+   "centroide": "humano_exclusivo",
+   "llm": "humano_exclusivo",
+   "hibrido": "humano_exclusivo"
+  },
+  {
+   "texto": "Me dio una alergia horrible con el jabón artesanal",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_evidente",
+   "capa0": true,
+   "dudoso": false,
+   "razon_v3": null,
+   "centroide": "humano_exclusivo",
+   "llm": "humano_exclusivo",
+   "hibrido": "humano_exclusivo"
+  },
+  {
+   "texto": "Desde que usé la crema tengo la piel roja y fue necesario salir en la noche",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "por debajo del piso de recover_password (0.716 < 0.722)",
+   "centroide": "copiloto",
+   "llm": "humano_exclusivo",
+   "hibrido": "humano_exclusivo"
+  },
+  {
+   "texto": "Mi bebé se llevó el producto a la boca y duro la tarde llorando, debi llevarlo corriendo",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "el carril automatico exige margen de carril >= 0.05 y hay 0.050 contra review (derivacion)",
+   "centroide": "copiloto",
+   "llm": "humano_exclusivo",
+   "hibrido": "humano_exclusivo"
+  },
+  {
+   "texto": "Comí eso y pasé la noche muy mal del estómago, tenia que tener algo",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "por debajo del piso de track_refund (0.744 < 0.753)",
+   "centroide": "copiloto",
+   "llm": "humano_exclusivo",
+   "hibrido": "humano_exclusivo"
+  },
+  {
+   "texto": "Voy a tener que buscar asesoría de alguien que sepa de leyes para esto",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "por debajo del piso de contact_human_agent (0.709 < 0.750)",
+   "centroide": "copiloto",
+   "llm": "copiloto",
+   "hibrido": "copiloto"
+  },
+  {
+   "texto": "Esto lo voy a poner en manos de quien corresponda ante las autoridades",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "por debajo del piso de contact_human_agent (0.738 < 0.750)",
+   "centroide": "copiloto",
+   "llm": "humano_exclusivo",
+   "hibrido": "humano_exclusivo"
+  },
+  {
+   "texto": "Mi señora quedó bastante mal después de probar eso y tuvimos que pedir servicio",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "margen de carril bajo (0.000 contra contact_customer_service (automatico))",
+   "centroide": "copiloto",
+   "llm": "humano_exclusivo",
+   "hibrido": "humano_exclusivo"
+  },
+  {
+   "texto": "Tengo el cuerpo brotado y el único cambio fue ese producto",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "el carril automatico exige margen de carril >= 0.05 y hay 0.011 contra switch_account (derivacion)",
+   "centroide": "copiloto",
+   "llm": "humano_exclusivo",
+   "hibrido": "humano_exclusivo"
+  },
+  {
+   "texto": "Ya hablé con alguien que me está asesorando sobre mis derechos como comprador",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "el carril automatico exige margen de carril >= 0.05 y hay 0.007 contra review (derivacion)",
+   "centroide": "copiloto",
+   "llm": "copiloto",
+   "hibrido": "copiloto"
+  },
+  {
+   "texto": "El producto trae algo que a mi hijo le hace daño y no venía advertido en la etiqueta",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "margen de carril bajo (0.022 contra contact_human_agent (copiloto))",
+   "centroide": "copiloto",
+   "llm": "humano_exclusivo",
+   "hibrido": "humano_exclusivo"
+  },
+  {
+   "texto": "No me acuerdo de la contraseña y no puedo entrar a mi cuenta",
+   "real": "derivacion",
+   "grupo": "derivacion",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "por debajo del piso de create_account (0.734 < 0.755)",
+   "centroide": "copiloto",
+   "llm": "derivacion",
+   "hibrido": "derivacion"
+  },
+  {
+   "texto": "Quiero que borren mi cuenta y todos mis datos",
+   "real": "derivacion",
+   "grupo": "derivacion",
+   "capa0": false,
+   "dudoso": false,
+   "razon_v3": null,
+   "centroide": "derivacion",
+   "llm": "derivacion",
+   "hibrido": "derivacion"
+  },
+  {
+   "texto": "Cómo hago para cambiar el correo de mi perfil",
+   "real": "derivacion",
+   "grupo": "derivacion",
+   "capa0": false,
+   "dudoso": false,
+   "razon_v3": null,
+   "centroide": "derivacion",
+   "llm": "derivacion",
+   "hibrido": "derivacion"
+  },
+  {
+   "texto": "Quiero hacer un pedido grande para mi tienda, con quién hablo",
+   "real": "derivacion",
+   "grupo": "derivacion",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "el carril automatico exige margen de carril >= 0.05 y hay 0.019 contra switch_account (derivacion)",
+   "centroide": "copiloto",
+   "llm": "derivacion",
+   "hibrido": "derivacion"
+  },
+  {
+   "texto": "Ya no quiero recibir los correos de ustedes",
+   "real": "derivacion",
+   "grupo": "derivacion",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "por debajo del piso de recover_password (0.712 < 0.722)",
+   "centroide": "copiloto",
+   "llm": "automatico",
+   "hibrido": "automatico"
+  },
+  {
+   "texto": "Me registré pero nunca me llegó el correo de confirmación",
+   "real": "derivacion",
+   "grupo": "derivacion",
+   "capa0": false,
+   "dudoso": true,
+   "razon_v3": "margen de carril bajo (0.014 contra track_refund (automatico))",
+   "centroide": "copiloto",
+   "llm": "derivacion",
+   "hibrido": "derivacion"
+  }
+ ]
+}

@@ -1,0 +1,679 @@
+{
+ "generado": "2026-09-19 15:57",
+ "modelo": "qwen3:14b",
+ "temperatura": 0.0,
+ "n_casos": 43,
+ "segundos_por_caso": 14.64,
+ "fallos_de_parseo": 0,
+ "A_centroides": {
+  "aciertos": 20,
+  "total": 43,
+  "brecha1": 9,
+  "brecha2": 0,
+  "copiloto": 33,
+  "matriz": {
+   "automatico": {
+    "automatico": 2,
+    "derivacion": 0,
+    "copiloto": 10,
+    "humano_exclusivo": 0
+   },
+   "derivacion": {
+    "automatico": 0,
+    "derivacion": 2,
+    "copiloto": 4,
+    "humano_exclusivo": 0
+   },
+   "copiloto": {
+    "automatico": 0,
+    "derivacion": 0,
+    "copiloto": 10,
+    "humano_exclusivo": 0
+   },
+   "humano_exclusivo": {
+    "automatico": 0,
+    "derivacion": 0,
+    "copiloto": 9,
+    "humano_exclusivo": 6
+   }
+  },
+  "grupos": {
+   "comun": [
+    12,
+    22
+   ],
+   "nucleo_duro_evidente": [
+    6,
+    6
+   ],
+   "nucleo_duro_parafraseado": [
+    0,
+    9
+   ],
+   "derivacion": [
+    2,
+    6
+   ]
+  }
+ },
+ "B_capa0_mas_prompt": {
+  "aciertos": 36,
+  "total": 43,
+  "brecha1": 2,
+  "brecha2": 0,
+  "copiloto": 16,
+  "matriz": {
+   "automatico": {
+    "automatico": 8,
+    "derivacion": 0,
+    "copiloto": 4,
+    "humano_exclusivo": 0
+   },
+   "derivacion": {
+    "automatico": 1,
+    "derivacion": 5,
+    "copiloto": 0,
+    "humano_exclusivo": 0
+   },
+   "copiloto": {
+    "automatico": 0,
+    "derivacion": 0,
+    "copiloto": 10,
+    "humano_exclusivo": 0
+   },
+   "humano_exclusivo": {
+    "automatico": 0,
+    "derivacion": 0,
+    "copiloto": 2,
+    "humano_exclusivo": 13
+   }
+  },
+  "grupos": {
+   "comun": [
+    18,
+    22
+   ],
+   "nucleo_duro_evidente": [
+    6,
+    6
+   ],
+   "nucleo_duro_parafraseado": [
+    7,
+    9
+   ],
+   "derivacion": [
+    5,
+    6
+   ]
+  }
+ },
+ "C_prompt_solo": {
+  "aciertos": 36,
+  "total": 43,
+  "brecha1": 2,
+  "brecha2": 0,
+  "copiloto": 16,
+  "matriz": {
+   "automatico": {
+    "automatico": 8,
+    "derivacion": 0,
+    "copiloto": 4,
+    "humano_exclusivo": 0
+   },
+   "derivacion": {
+    "automatico": 1,
+    "derivacion": 5,
+    "copiloto": 0,
+    "humano_exclusivo": 0
+   },
+   "copiloto": {
+    "automatico": 0,
+    "derivacion": 0,
+    "copiloto": 10,
+    "humano_exclusivo": 0
+   },
+   "humano_exclusivo": {
+    "automatico": 0,
+    "derivacion": 0,
+    "copiloto": 2,
+    "humano_exclusivo": 13
+   }
+  },
+  "grupos": {
+   "comun": [
+    18,
+    22
+   ],
+   "nucleo_duro_evidente": [
+    6,
+    6
+   ],
+   "nucleo_duro_parafraseado": [
+    7,
+    9
+   ],
+   "derivacion": [
+    5,
+    6
+   ]
+  }
+ },
+ "detalle": [
+  {
+   "texto": "Buenas tardes, quiero saber dónde se encuentra mi pedido",
+   "real": "automatico",
+   "grupo": "comun",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "automatico",
+   "confianza_prompt": 0.95,
+   "justificacion": "consulta de estado: dato transaccional, la política responde",
+   "segundos": 13.9,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Hace cinco días compré y todavía no general el envio",
+   "real": "automatico",
+   "grupo": "comun",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "automatico",
+   "confianza_prompt": 0.95,
+   "justificacion": "consulta de estado: dato transaccional, la política responde",
+   "segundos": 9.25,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Me pueden dar el número de guía dela compra 12345",
+   "real": "automatico",
+   "grupo": "comun",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "automatico",
+   "confianza_prompt": 0.95,
+   "justificacion": "consulta de estado: dato transaccional, la política responde",
+   "segundos": 8.79,
+   "parseo_ok": true
+  },
+  {
+   "texto": "¿Cuándo llega mi pedido?",
+   "real": "automatico",
+   "grupo": "comun",
+   "capa0_escala": false,
+   "centroides": "automatico",
+   "prompt": "automatico",
+   "confianza_prompt": 0.95,
+   "justificacion": "consulta de estado: dato transaccional, la política responde",
+   "segundos": 9.09,
+   "parseo_ok": true
+  },
+  {
+   "texto": "El pedido esta retrasado, qué pasó",
+   "real": "automatico",
+   "grupo": "comun",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "automatico",
+   "confianza_prompt": 0.95,
+   "justificacion": "consulta de estado: dato transaccional, la política responde",
+   "segundos": 9.41,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Cuántos días tengo para devolver un producto",
+   "real": "automatico",
+   "grupo": "comun",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "automatico",
+   "confianza_prompt": 0.95,
+   "justificacion": "consulta de plazo de devolución: dato transaccional, la política responde",
+   "segundos": 10.81,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Quiero devolver un termo que no he usado",
+   "real": "automatico",
+   "grupo": "comun",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "copiloto",
+   "confianza_prompt": 0.95,
+   "justificacion": "solicita devolución de producto: compromete dinero de la empresa",
+   "segundos": 11.56,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Los paños me llegaron rotos, quiero cambio",
+   "real": "automatico",
+   "grupo": "comun",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "copiloto",
+   "confianza_prompt": 0.95,
+   "justificacion": "solicita cambio por producto dañado: compromete decisión comercial",
+   "segundos": 8.93,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Desde que valor de compra hay envío gratis",
+   "real": "automatico",
+   "grupo": "comun",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "automatico",
+   "confianza_prompt": 0.95,
+   "justificacion": "consulta normativa pura; nadie decide nada",
+   "segundos": 4.55,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Cuánto se demora el reembolso",
+   "real": "automatico",
+   "grupo": "comun",
+   "capa0_escala": false,
+   "centroides": "automatico",
+   "prompt": "automatico",
+   "confianza_prompt": 0.95,
+   "justificacion": "consulta de proceso de reembolso: dato transaccional, la política responde",
+   "segundos": 10.91,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Me llegó un producto que no pedí",
+   "real": "automatico",
+   "grupo": "comun",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "copiloto",
+   "confianza_prompt": 0.85,
+   "justificacion": "situación que puede requerir un reembolso o cambio, compromete dinero",
+   "segundos": 47.97,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Estoy molesto, el pedido llegó tres días tarde y nadie me notifico",
+   "real": "automatico",
+   "grupo": "comun",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "copiloto",
+   "confianza_prompt": 0.85,
+   "justificacion": "expresa frustración por entrega tardía y falta de notificación; requiere atención humana para resolver el problema de servicio",
+   "segundos": 47.74,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Ya pasaron los treinta días pero necesito devolverlo",
+   "real": "copiloto",
+   "grupo": "comun",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "copiloto",
+   "confianza_prompt": 0.95,
+   "justificacion": "solicita excepción a política de devoluciones fuera de plazo",
+   "segundos": 9.16,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Me pueden hacer una excepción con la política de devoluciones",
+   "real": "copiloto",
+   "grupo": "comun",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "copiloto",
+   "confianza_prompt": 0.95,
+   "justificacion": "solicita excepción a política vigente",
+   "segundos": 9.42,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Abrí el shampoo sólido pero no me sirvió, ¿hay algo que puedan hacer?",
+   "real": "copiloto",
+   "grupo": "comun",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "copiloto",
+   "confianza_prompt": 0.85,
+   "justificacion": "solicita una solución por producto no funcional, compromete dinero",
+   "segundos": 16.23,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Por la demora quisiera algún tipo de consideración de su parte",
+   "real": "copiloto",
+   "grupo": "comun",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "copiloto",
+   "confianza_prompt": 0.95,
+   "justificacion": "solicita una excepción por demora; requiere decisión comercial",
+   "segundos": 13.58,
+   "parseo_ok": true
+  },
+  {
+   "texto": "El café no sabía como esperaba, ¿me pueden cambiar por otro?",
+   "real": "copiloto",
+   "grupo": "comun",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "copiloto",
+   "confianza_prompt": 0.95,
+   "justificacion": "solicita un cambio de producto: compromete decisión comercial",
+   "segundos": 39.63,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Compré para regalo y la persona no lo quiso, ya pasó el plazo",
+   "real": "copiloto",
+   "grupo": "comun",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "copiloto",
+   "confianza_prompt": 0.95,
+   "justificacion": "solicita excepción por devolución fuera del plazo establecido",
+   "segundos": 9.65,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Es la segunda vez que me pasa lo mismo con ustedes, espero una solución real",
+   "real": "copiloto",
+   "grupo": "comun",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "copiloto",
+   "confianza_prompt": 0.9,
+   "justificacion": "solicita una solución para un problema recurrente, lo que implica una decisión o gesto comercial",
+   "segundos": 31.34,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Quiero devolver todos mis pedidos",
+   "real": "copiloto",
+   "grupo": "comun",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "copiloto",
+   "confianza_prompt": 0.95,
+   "justificacion": "solicita devolución de múltiples pedidos: compromete dinero de la empresa",
+   "segundos": 12.55,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Perdí la factura y requiero devolver los articulos",
+   "real": "copiloto",
+   "grupo": "comun",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "copiloto",
+   "confianza_prompt": 0.85,
+   "justificacion": "solicita devolución sin factura: requiere excepción a la política vigente",
+   "segundos": 15.59,
+   "parseo_ok": true
+  },
+  {
+   "texto": "El producto está bien pero me arrepentí de la compra",
+   "real": "copiloto",
+   "grupo": "comun",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "copiloto",
+   "confianza_prompt": 0.95,
+   "justificacion": "solicita devolución: compromete dinero de la empresa",
+   "segundos": 11.67,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Después de comerme las almendras terminé en urgencias",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_evidente",
+   "capa0_escala": true,
+   "centroides": "humano_exclusivo",
+   "prompt": "humano_exclusivo",
+   "confianza_prompt": 0.95,
+   "justificacion": "reporta daño a la salud de una persona por consumo de producto",
+   "segundos": 10.03,
+   "parseo_ok": true
+  },
+  {
+   "texto": "El detergente me causó una quemadura en las manos",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_evidente",
+   "capa0_escala": true,
+   "centroides": "humano_exclusivo",
+   "prompt": "humano_exclusivo",
+   "confianza_prompt": 0.99,
+   "justificacion": "reporta daño a la salud de una persona por quemadura causada por producto",
+   "segundos": 9.29,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Voy a demandarlos si no me responden",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_evidente",
+   "capa0_escala": true,
+   "centroides": "humano_exclusivo",
+   "prompt": "humano_exclusivo",
+   "confianza_prompt": 0.95,
+   "justificacion": "amenaza de acción legal explícita en el mensaje",
+   "segundos": 7.86,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Esto lo llevo a la Superintendencia",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_evidente",
+   "capa0_escala": true,
+   "centroides": "humano_exclusivo",
+   "prompt": "humano_exclusivo",
+   "confianza_prompt": 0.95,
+   "justificacion": "amenaza de acción legal (mención de llevar el caso a la Superintendencia)",
+   "segundos": 6.71,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Mi abogado ya está enterado del caso",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_evidente",
+   "capa0_escala": true,
+   "centroides": "humano_exclusivo",
+   "prompt": "humano_exclusivo",
+   "confianza_prompt": 0.95,
+   "justificacion": "menciona involucramiento de abogado (posible amenaza legal)",
+   "segundos": 12.32,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Me dio una alergia horrible con el jabón artesanal",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_evidente",
+   "capa0_escala": true,
+   "centroides": "humano_exclusivo",
+   "prompt": "humano_exclusivo",
+   "confianza_prompt": 0.95,
+   "justificacion": "reporta daño a la salud de una persona por reacción alérgica",
+   "segundos": 5.91,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Desde que usé la crema tengo la piel roja y fue necesario salir en la noche",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "humano_exclusivo",
+   "confianza_prompt": 0.95,
+   "justificacion": "reporta posible reacción alérgica o irritación cutánea; menciona daño a la salud",
+   "segundos": 10.49,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Mi bebé se llevó el producto a la boca y duro la tarde llorando, debi llevarlo corriendo",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "humano_exclusivo",
+   "confianza_prompt": 0.95,
+   "justificacion": "reporta posible daño a la salud de un menor por ingestión de producto; urgencia médica implícita",
+   "segundos": 12.63,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Comí eso y pasé la noche muy mal del estómago, tenia que tener algo",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "humano_exclusivo",
+   "confianza_prompt": 0.95,
+   "justificacion": "reporta daño a la salud de una persona por malestar estomacal",
+   "segundos": 12.87,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Voy a tener que buscar asesoría de alguien que sepa de leyes para esto",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "copiloto",
+   "confianza_prompt": 0.85,
+   "justificacion": "solicita asesoría legal: compromete decisión externa, no responde la política",
+   "segundos": 35.51,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Esto lo voy a poner en manos de quien corresponda ante las autoridades",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "humano_exclusivo",
+   "confianza_prompt": 0.95,
+   "justificacion": "amenaza de acción legal (mención de entregar el caso a autoridades)",
+   "segundos": 12.48,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Mi señora quedó bastante mal después de probar eso y tuvimos que pedir servicio",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "humano_exclusivo",
+   "confianza_prompt": 0.95,
+   "justificacion": "reporta daño a la salud de una persona; ninguna otra consideración aplica",
+   "segundos": 15.58,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Tengo el cuerpo brotado y el único cambio fue ese producto",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "humano_exclusivo",
+   "confianza_prompt": 0.95,
+   "justificacion": "reporta daño a la salud de una persona; ninguna otra consideración aplica",
+   "segundos": 11.19,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Ya hablé con alguien que me está asesorando sobre mis derechos como comprador",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "copiloto",
+   "confianza_prompt": 0.8,
+   "justificacion": "el mensaje menciona consulta sobre derechos del comprador, lo que puede requerir intervención humana para aclarar necesidades específicas",
+   "segundos": 30.3,
+   "parseo_ok": true
+  },
+  {
+   "texto": "El producto trae algo que a mi hijo le hace daño y no venía advertido en la etiqueta",
+   "real": "humano_exclusivo",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "humano_exclusivo",
+   "confianza_prompt": 0.95,
+   "justificacion": "reporta daño a la salud de una persona por consumo de producto",
+   "segundos": 9.72,
+   "parseo_ok": true
+  },
+  {
+   "texto": "No me acuerdo de la contraseña y no puedo entrar a mi cuenta",
+   "real": "derivacion",
+   "grupo": "derivacion",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "derivacion",
+   "confianza_prompt": 0.95,
+   "justificacion": "gestion de cuentas: olvido de credenciales",
+   "segundos": 9.68,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Quiero que borren mi cuenta y todos mis datos",
+   "real": "derivacion",
+   "grupo": "derivacion",
+   "capa0_escala": false,
+   "centroides": "derivacion",
+   "prompt": "derivacion",
+   "confianza_prompt": 0.95,
+   "justificacion": "gestion de cuentas: solicitud de eliminacion de cuenta",
+   "segundos": 9.38,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Cómo hago para cambiar el correo de mi perfil",
+   "real": "derivacion",
+   "grupo": "derivacion",
+   "capa0_escala": false,
+   "centroides": "derivacion",
+   "prompt": "derivacion",
+   "confianza_prompt": 0.95,
+   "justificacion": "gestion de cuentas: cambio de correo asociado al perfil",
+   "segundos": 7.94,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Quiero hacer un pedido grande para mi tienda, con quién hablo",
+   "real": "derivacion",
+   "grupo": "derivacion",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "derivacion",
+   "confianza_prompt": 0.95,
+   "justificacion": "venta, no atención post-venta",
+   "segundos": 7.69,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Ya no quiero recibir los correos de ustedes",
+   "real": "derivacion",
+   "grupo": "derivacion",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "automatico",
+   "confianza_prompt": 0.95,
+   "justificacion": "solicitud de no recibir correos: política de gestión de preferencias de contacto",
+   "segundos": 15.16,
+   "parseo_ok": true
+  },
+  {
+   "texto": "Me registré pero nunca me llegó el correo de confirmación",
+   "real": "derivacion",
+   "grupo": "derivacion",
+   "capa0_escala": false,
+   "centroides": "copiloto",
+   "prompt": "derivacion",
+   "confianza_prompt": 0.9,
+   "justificacion": "gestion de cuentas: problema con correo de confirmacion",
+   "segundos": 15.2,
+   "parseo_ok": true
+  }
+ ]
+}

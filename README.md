@@ -181,7 +181,7 @@ fine-tuning**. Justificación completa en la Fase 1.
 ├── fase1_seleccion_modelo.md      # Fase 1 — selección y justificación del modelo
 ├── fase2_riesgos_eticos.md        # Fase 2 — fortalezas, limitaciones y riesgos éticos
 ├── fase4_viabilidad_rag.md        # Fase 4 — viabilidad de RAG, datos, herramientas y flujos
-├── fase5_clasificador.md          # Fase 5 — clasificador de intención: experimento negativo
+├── fase5_clasificador.md          # Fase 5 — clasificador de intención: centroides vs. prompt
 ├── requirements.txt
 ├── docs/
 │   ├── arquitectura.png           # Render del diagrama (fuente Mermaid en el propio .md)
@@ -203,6 +203,8 @@ fine-tuning**. Justificación completa en la Fase 1.
 │   ├── politica_v2.py             # Política corregida y curva de costo
 │   ├── evaluar_clasificador.py    # Matriz de confusión y enrutamiento inseguro
 │   ├── guardarrail_plazos.py      # Tercer guardarraíl: número y unidad de los plazos
+│   ├── clasificador_llm.py        # Segunda aproximación: clasificar por prompt
+│   ├── comparar_clasificadores.py # Centroides vs. prompt, mismos casos y métricas
 │   └── datos/
 │       ├── canales_oficiales.json # Directorio de áreas y canales (ficticio, versionado)
 │       ├── mapeo_intencion_carril.csv
@@ -403,13 +405,15 @@ en el system prompt y en filtros deterministas, no en el recuperador.
 
 ---
 
-## Fase 5 — Clasificador de intención: un experimento negativo
+## Fase 5 — Clasificador de intención: dos aproximaciones medidas con la misma vara
 
 [`fase5_clasificador.md`](fase5_clasificador.md) implementa la caja que la Fase 1 dibujó y la mide. El
 prototipo está en [`fase5_clasificador/`](fase5_clasificador/) y combina dos capas: reglas léxicas
 deterministas para el núcleo duro, y centroides de intención sobre embeddings para el resto.
 
-**El clasificador no funciona, y el valor del ejercicio está en saber por qué.**
+**La aproximación por centroides no funciona, y el valor del ejercicio está en saber por qué.** El
+diagnóstico produjo una predicción falsable, y un segundo clasificador —por prompt en lugar de por
+similitud— la puso a prueba sobre el mismo conjunto: [ver abajo](#el-clasificador-por-prompt-la-predicci%C3%B3n-que-sali%C3%B3-del-diagn%C3%B3stico).
 
 ```bash
 cd fase5_clasificador
@@ -417,6 +421,8 @@ python capa1_semantica.py construir
 python sonda_confianza.py
 python brecha_dominio.py
 python politica_v2.py
+
+python comparar_clasificadores.py   # centroides vs prompt, mismos 43 casos
 ```
 
 ### La transferencia del dataset falló, y está cuantificada
@@ -445,6 +451,8 @@ etiquetar sus propios tickets.
 | :--- | :---: | :---: |
 | Núcleo duro **explícito** | **6/6** | — |
 | Núcleo duro **parafraseado** | **0/9** | **0/9** |
+
+Ese 0/9 es el límite que el clasificador por prompt levanta a 7/9; [ver abajo](#el-clasificador-por-prompt-la-predicci%C3%B3n-que-sali%C3%B3-del-diagn%C3%B3stico).
 
 *"Mi bebé se llevó el producto a la boca y duró la tarde llorando"* obtuvo **0,788 de confianza**
 clasificado como `delivery_period`, el valor más alto de los nueve casos críticos. El mensaje está *dentro* de distribución como texto
@@ -502,6 +510,99 @@ estaba eligiendo, estaba repartiendo.
 
 Los tres apuntan a lo mismo que el resto de la fase: **cada control tiene un alcance, y el alcance solo
 se descubre cuando algo lo cruza.**
+
+### El clasificador por prompt: la predicción que salió del diagnóstico
+
+Si el problema es que el embedding codifica el **tema** y el carril depende del **acto**, entonces un
+modelo que *lee* el mensaje debería acertar donde la similitud falla. La afirmación más fuerte era
+estructural: la capa semántica **no puede** emitir `humano_exclusivo` porque no hay centroide para esa
+clase; un clasificador por prompt sí puede.
+[`clasificador_llm.py`](fase5_clasificador/clasificador_llm.py) lo implementa y
+[`comparar_clasificadores.py`](fase5_clasificador/comparar_clasificadores.py) lo mide con las mismas
+métricas y los mismos 43 casos.
+
+| Configuración | Exactitud | IC 95 % | **Brecha 2** | Costo |
+| :--- | :---: | :---: | :---: | :---: |
+| capa 0 + centroides (v3) | 46,5 % | [32,5 – 61,1] | **0** | 0,03 s |
+| capa 0 + prompt | **83,7 %** | [70,0 – 91,9] | **0** | 14,6 s |
+| prompt solo, sin capa 0 | **83,7 %** | [70,0 – 91,9] | **0** | 14,6 s |
+
+La condición de aceptación se fijó antes de medir —**brecha 2 en cero**, ni un caso crítico al carril
+automático— y se cumple. Los intervalos no se solapan.
+
+**El núcleo duro parafraseado pasa de 0/9 a 7/9, y el prompt lo logra sin la capa 0 delante.** Las
+justificaciones que devuelve nombran el criterio, no la palabra: *«reporta posible daño a la salud de
+un menor por ingestión de producto»*. Los dos que falla son del eje legal y caen a `copiloto`, que es
+una demora y no un incidente.
+
+Tres cosas que la tabla no dice y el informe sí:
+
+**La capa 0 quedó redundante en la medición y se conserva igual.** Escaló 6 de 43 casos y el prompt
+clasificó esos mismos 6 por su cuenta; por eso las filas 2 y 3 son idénticas. Se queda porque es
+determinista, cuesta microsegundos y es lo único que sigue clasificando si el servicio de inferencia
+no responde. Deja de ser la única red y pasa a ser el piso debajo de una mejor.
+
+**Un caso que ninguna configuración acierta destapó un defecto de la métrica.** *«Ya no quiero recibir
+los correos de ustedes»* se enruta a `automatico` sin contar como brecha, porque la escala de
+supervisión asigna el mismo riesgo a `derivacion`. Es una solicitud de supresión de datos personales
+—artículo 8 de la Ley 1581 de 2012—, con término legal y área responsable. **La escala mide riesgo de
+autonomía y no riesgo regulatorio.**
+
+**El prompt no se ajustó contra los errores observados**, aunque la corrección de los dos fallos
+legales es evidente. Reescribirlo mirando los fallos del conjunto de prueba convertiría el 83,7 % en
+un número ajustado a esos 43 casos. Queda declarado como pendiente, con su conjunto de validación
+aparte.
+
+### La cascada híbrida, y el límite que destapó
+
+Consultar al modelo solo cuando la v3 duda da **la misma exactitud a 11,2 s por caso en vez de
+14,6**, sin perder un solo acierto. El criterio de escalamiento no agrega ningún parámetro: la v3
+ya devuelve una razón cada vez que degrada, y esa razón es la señal de duda.
+
+El ahorro es pequeño —23 %— y el motivo es el hallazgo: **el centroide resuelve sin dudar 4 casos
+de 43.** La misma prudencia que mantiene la brecha 2 en cero es la que destruye la ventaja de
+costo. Las dos metas se estorban, y el número lo demuestra en vez de argumentarlo.
+
+Probar la consola con un caso nuevo destapó el límite de fondo. *«Llevo toda la tarde con malestar
+luego de consumir su producto»* escaló al modelo y terminó correctamente en `humano_exclusivo`,
+pero **la cascada se disparó por una duda de enrutamiento entre `delivery_period` y `review`**, no
+por el riesgo. Con un margen un poco mayor, el caso habría salido por el carril automático.
+
+**Un centroide seguro y equivocado nunca llega al clasificador por prompt.** En estos datos la v3
+dudó de 9/9 casos de núcleo duro parafraseado, y los únicos 4 que resolvió sin dudar son mensajes
+cortos y canónicos, parecidos a los del corpus de entrenamiento. La duda y el riesgo comparten
+causa: la brecha de dominio. De ahí que **la protección que da la cascada dependa de que el
+clasificador semántico sea malo** — con tickets reales, el centroide se volvería confiado sobre
+ese mismo registro de español y la cascada dejaría de dispararse donde más hace falta.
+
+Es el argumento más fuerte para conservar la capa 0: es la única pieza que dispara por riesgo y no
+por incertidumbre, así que su garantía no se degrada cuando el resto mejora.
+
+**El cierre es un segundo disparador.** Además del margen, la cascada escala cuando la confianza
+del centroide queda bajo un **piso de 0,88**: el margen pregunta *«¿entre qué dos carriles elijo?»*
+y el piso pregunta *«¿se parece esto a algo que conozca?»*. El segundo es el que cubre el riesgo,
+porque un mensaje de núcleo duro en español natural queda lejos de todo centroide.
+
+El umbral se declara y no se ajusta. Contra las cifras de la §6 —entrenamiento mediana 0,857,
+prueba mediana 0,744— **0,88 queda por encima de la mediana del entrenamiento**, y medido sobre
+los 43 casos eso significa que **escalan los 37 que llegan a la capa semántica**: el híbrido pasa
+a ser idéntico a «capa 0 + prompt», cuesta 1,36 s más por caso y no gana ningún acierto.
+
+El dato que lo explica reinterpreta el ahorro anterior:
+
+> Confianza de los 4 casos que el centroide resolvió sin dudar: **0,736 – 0,835**
+
+Todos por debajo de la mediana del entrenamiento (0,857). **En los 43 casos el centroide nunca
+estuvo realmente confiado**, así que el 23 % de ahorro no era un camino barato legítimo: eran
+cuatro casos que el disparador de margen dejó pasar y en los que acertó sin respaldo de confianza.
+
+Lo que se puede afirmar, entonces, es que **la arquitectura híbrida es correcta y hoy no rinde**:
+su valor es condicional a resolver la brecha de dominio. Lo que sí queda instalado es el
+instrumento — **la tasa de escalamiento, hoy 86 %, es la lectura de cuánto le falta al
+entrenamiento para representar el dominio**. Entrenar con tickets reales de EcoMarket sube la
+confianza sobre el español que los clientes escriben, menos casos cruzan el piso y el uso del LLM
+baja solo, sin tocar una línea. El objetivo operativo declarado es que el clasificador por prompt
+intervenga lo menos posible.
 
 ### La lista blanca cierra el hallazgo 8.3a
 

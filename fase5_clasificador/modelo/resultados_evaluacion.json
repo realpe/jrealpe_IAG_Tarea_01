@@ -1,0 +1,491 @@
+{
+ "generado": "2026-09-19 17:46",
+ "carriles": [
+  "automatico",
+  "derivacion",
+  "copiloto",
+  "humano_exclusivo"
+ ],
+ "matriz": {
+  "automatico": {
+   "automatico": 3,
+   "derivacion": 0,
+   "copiloto": 9,
+   "humano_exclusivo": 0
+  },
+  "derivacion": {
+   "automatico": 0,
+   "derivacion": 1,
+   "copiloto": 5,
+   "humano_exclusivo": 0
+  },
+  "copiloto": {
+   "automatico": 1,
+   "derivacion": 0,
+   "copiloto": 9,
+   "humano_exclusivo": 0
+  },
+  "humano_exclusivo": {
+   "automatico": 1,
+   "derivacion": 0,
+   "copiloto": 8,
+   "humano_exclusivo": 6
+  }
+ },
+ "grupos": {
+  "comun": [
+   12,
+   22
+  ],
+  "nucleo_duro_evidente": [
+   6,
+   6
+  ],
+  "nucleo_duro_parafraseado": [
+   0,
+   9
+  ],
+  "derivacion": [
+   1,
+   6
+  ]
+ },
+ "total": 43,
+ "aciertos": 19,
+ "por_capa": {
+  "0": 6,
+  "1": 37
+ },
+ "casos": [
+  {
+   "texto": "Buenas tardes, quiero saber dónde se encuentra mi pedido",
+   "real": "automatico",
+   "predicho": "copiloto",
+   "grupo": "comun",
+   "capa": 1,
+   "intencion": "delivery_period",
+   "confianza": 0.7459,
+   "texto_propio": true
+  },
+  {
+   "texto": "Hace cinco días compré y todavía no general el envio",
+   "real": "automatico",
+   "predicho": "copiloto",
+   "grupo": "comun",
+   "capa": 1,
+   "intencion": "set_up_shipping_address",
+   "confianza": 0.7275,
+   "texto_propio": true
+  },
+  {
+   "texto": "Me pueden dar el número de guía dela compra 12345",
+   "real": "automatico",
+   "predicho": "copiloto",
+   "grupo": "comun",
+   "capa": 1,
+   "intencion": "track_order",
+   "confianza": 0.7571,
+   "texto_propio": true
+  },
+  {
+   "texto": "¿Cuándo llega mi pedido?",
+   "real": "automatico",
+   "predicho": "automatico",
+   "grupo": "comun",
+   "capa": 1,
+   "intencion": "delivery_period",
+   "confianza": 0.7356,
+   "texto_propio": true
+  },
+  {
+   "texto": "El pedido esta retrasado, qué pasó",
+   "real": "automatico",
+   "predicho": "copiloto",
+   "grupo": "comun",
+   "capa": 1,
+   "intencion": "check_refund_policy",
+   "confianza": 0.7181,
+   "texto_propio": true
+  },
+  {
+   "texto": "Cuántos días tengo para devolver un producto",
+   "real": "automatico",
+   "predicho": "copiloto",
+   "grupo": "comun",
+   "capa": 1,
+   "intencion": "review",
+   "confianza": 0.7895,
+   "texto_propio": false
+  },
+  {
+   "texto": "Quiero devolver un termo que no he usado",
+   "real": "automatico",
+   "predicho": "copiloto",
+   "grupo": "comun",
+   "capa": 1,
+   "intencion": "track_refund",
+   "confianza": 0.7446,
+   "texto_propio": true
+  },
+  {
+   "texto": "Los paños me llegaron rotos, quiero cambio",
+   "real": "automatico",
+   "predicho": "copiloto",
+   "grupo": "comun",
+   "capa": 1,
+   "intencion": "recover_password",
+   "confianza": 0.7072,
+   "texto_propio": false
+  },
+  {
+   "texto": "Desde que valor de compra hay envío gratis",
+   "real": "automatico",
+   "predicho": "copiloto",
+   "grupo": "comun",
+   "capa": 1,
+   "intencion": "review",
+   "confianza": 0.7437,
+   "texto_propio": true
+  },
+  {
+   "texto": "Cuánto se demora el reembolso",
+   "real": "automatico",
+   "predicho": "automatico",
+   "grupo": "comun",
+   "capa": 1,
+   "intencion": "check_refund_policy",
+   "confianza": 0.8347,
+   "texto_propio": true
+  },
+  {
+   "texto": "Me llegó un producto que no pedí",
+   "real": "automatico",
+   "predicho": "copiloto",
+   "grupo": "comun",
+   "capa": 1,
+   "intencion": "delivery_period",
+   "confianza": 0.7549,
+   "texto_propio": false
+  },
+  {
+   "texto": "Estoy molesto, el pedido llegó tres días tarde y nadie me notifico",
+   "real": "automatico",
+   "predicho": "automatico",
+   "grupo": "comun",
+   "capa": 1,
+   "intencion": "delivery_period",
+   "confianza": 0.7462,
+   "texto_propio": true
+  },
+  {
+   "texto": "Ya pasaron los treinta días pero necesito devolverlo",
+   "real": "copiloto",
+   "predicho": "copiloto",
+   "grupo": "comun",
+   "capa": 1,
+   "intencion": "check_refund_policy",
+   "confianza": 0.7662,
+   "texto_propio": true
+  },
+  {
+   "texto": "Me pueden hacer una excepción con la política de devoluciones",
+   "real": "copiloto",
+   "predicho": "copiloto",
+   "grupo": "comun",
+   "capa": 1,
+   "intencion": "check_refund_policy",
+   "confianza": 0.7308,
+   "texto_propio": false
+  },
+  {
+   "texto": "Abrí el shampoo sólido pero no me sirvió, ¿hay algo que puedan hacer?",
+   "real": "copiloto",
+   "predicho": "copiloto",
+   "grupo": "comun",
+   "capa": 1,
+   "intencion": "review",
+   "confianza": 0.7099,
+   "texto_propio": false
+  },
+  {
+   "texto": "Por la demora quisiera algún tipo de consideración de su parte",
+   "real": "copiloto",
+   "predicho": "copiloto",
+   "grupo": "comun",
+   "capa": 1,
+   "intencion": "review",
+   "confianza": 0.7696,
+   "texto_propio": false
+  },
+  {
+   "texto": "El café no sabía como esperaba, ¿me pueden cambiar por otro?",
+   "real": "copiloto",
+   "predicho": "copiloto",
+   "grupo": "comun",
+   "capa": 1,
+   "intencion": "switch_account",
+   "confianza": 0.7307,
+   "texto_propio": false
+  },
+  {
+   "texto": "Compré para regalo y la persona no lo quiso, ya pasó el plazo",
+   "real": "copiloto",
+   "predicho": "copiloto",
+   "grupo": "comun",
+   "capa": 1,
+   "intencion": "contact_human_agent",
+   "confianza": 0.7373,
+   "texto_propio": false
+  },
+  {
+   "texto": "Es la segunda vez que me pasa lo mismo con ustedes, espero una solución real",
+   "real": "copiloto",
+   "predicho": "automatico",
+   "grupo": "comun",
+   "capa": 1,
+   "intencion": "track_refund",
+   "confianza": 0.7417,
+   "texto_propio": true
+  },
+  {
+   "texto": "Quiero devolver todos mis pedidos",
+   "real": "copiloto",
+   "predicho": "copiloto",
+   "grupo": "comun",
+   "capa": 1,
+   "intencion": "check_refund_policy",
+   "confianza": 0.7081,
+   "texto_propio": true
+  },
+  {
+   "texto": "Perdí la factura y requiero devolver los articulos",
+   "real": "copiloto",
+   "predicho": "copiloto",
+   "grupo": "comun",
+   "capa": 1,
+   "intencion": "get_invoice",
+   "confianza": 0.7688,
+   "texto_propio": true
+  },
+  {
+   "texto": "El producto está bien pero me arrepentí de la compra",
+   "real": "copiloto",
+   "predicho": "copiloto",
+   "grupo": "comun",
+   "capa": 1,
+   "intencion": "place_order",
+   "confianza": 0.7618,
+   "texto_propio": false
+  },
+  {
+   "texto": "Después de comerme las almendras terminé en urgencias",
+   "real": "humano_exclusivo",
+   "predicho": "humano_exclusivo",
+   "grupo": "nucleo_duro_evidente",
+   "capa": 0,
+   "intencion": null,
+   "confianza": null,
+   "texto_propio": false
+  },
+  {
+   "texto": "El detergente me causó una quemadura en las manos",
+   "real": "humano_exclusivo",
+   "predicho": "humano_exclusivo",
+   "grupo": "nucleo_duro_evidente",
+   "capa": 0,
+   "intencion": null,
+   "confianza": null,
+   "texto_propio": false
+  },
+  {
+   "texto": "Voy a demandarlos si no me responden",
+   "real": "humano_exclusivo",
+   "predicho": "humano_exclusivo",
+   "grupo": "nucleo_duro_evidente",
+   "capa": 0,
+   "intencion": null,
+   "confianza": null,
+   "texto_propio": false
+  },
+  {
+   "texto": "Esto lo llevo a la Superintendencia",
+   "real": "humano_exclusivo",
+   "predicho": "humano_exclusivo",
+   "grupo": "nucleo_duro_evidente",
+   "capa": 0,
+   "intencion": null,
+   "confianza": null,
+   "texto_propio": false
+  },
+  {
+   "texto": "Mi abogado ya está enterado del caso",
+   "real": "humano_exclusivo",
+   "predicho": "humano_exclusivo",
+   "grupo": "nucleo_duro_evidente",
+   "capa": 0,
+   "intencion": null,
+   "confianza": null,
+   "texto_propio": false
+  },
+  {
+   "texto": "Me dio una alergia horrible con el jabón artesanal",
+   "real": "humano_exclusivo",
+   "predicho": "humano_exclusivo",
+   "grupo": "nucleo_duro_evidente",
+   "capa": 0,
+   "intencion": null,
+   "confianza": null,
+   "texto_propio": false
+  },
+  {
+   "texto": "Desde que usé la crema tengo la piel roja y fue necesario salir en la noche",
+   "real": "humano_exclusivo",
+   "predicho": "copiloto",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa": 1,
+   "intencion": "recover_password",
+   "confianza": 0.7163,
+   "texto_propio": true
+  },
+  {
+   "texto": "Mi bebé se llevó el producto a la boca y duro la tarde llorando, debi llevarlo corriendo",
+   "real": "humano_exclusivo",
+   "predicho": "automatico",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa": 1,
+   "intencion": "delivery_period",
+   "confianza": 0.7884,
+   "texto_propio": true
+  },
+  {
+   "texto": "Comí eso y pasé la noche muy mal del estómago, tenia que tener algo",
+   "real": "humano_exclusivo",
+   "predicho": "copiloto",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa": 1,
+   "intencion": "track_refund",
+   "confianza": 0.7436,
+   "texto_propio": true
+  },
+  {
+   "texto": "Voy a tener que buscar asesoría de alguien que sepa de leyes para esto",
+   "real": "humano_exclusivo",
+   "predicho": "copiloto",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa": 1,
+   "intencion": "contact_human_agent",
+   "confianza": 0.7088,
+   "texto_propio": false
+  },
+  {
+   "texto": "Esto lo voy a poner en manos de quien corresponda ante las autoridades",
+   "real": "humano_exclusivo",
+   "predicho": "copiloto",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa": 1,
+   "intencion": "contact_human_agent",
+   "confianza": 0.7385,
+   "texto_propio": false
+  },
+  {
+   "texto": "Mi señora quedó bastante mal después de probar eso y tuvimos que pedir servicio",
+   "real": "humano_exclusivo",
+   "predicho": "copiloto",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa": 1,
+   "intencion": "review",
+   "confianza": 0.7846,
+   "texto_propio": true
+  },
+  {
+   "texto": "Tengo el cuerpo brotado y el único cambio fue ese producto",
+   "real": "humano_exclusivo",
+   "predicho": "copiloto",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa": 1,
+   "intencion": "delivery_period",
+   "confianza": 0.7763,
+   "texto_propio": false
+  },
+  {
+   "texto": "Ya hablé con alguien que me está asesorando sobre mis derechos como comprador",
+   "real": "humano_exclusivo",
+   "predicho": "copiloto",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa": 1,
+   "intencion": "delivery_period",
+   "confianza": 0.7579,
+   "texto_propio": false
+  },
+  {
+   "texto": "El producto trae algo que a mi hijo le hace daño y no venía advertido en la etiqueta",
+   "real": "humano_exclusivo",
+   "predicho": "copiloto",
+   "grupo": "nucleo_duro_parafraseado",
+   "capa": 1,
+   "intencion": "review",
+   "confianza": 0.7817,
+   "texto_propio": false
+  },
+  {
+   "texto": "No me acuerdo de la contraseña y no puedo entrar a mi cuenta",
+   "real": "derivacion",
+   "predicho": "copiloto",
+   "grupo": "derivacion",
+   "capa": 1,
+   "intencion": "create_account",
+   "confianza": 0.7343,
+   "texto_propio": false
+  },
+  {
+   "texto": "Quiero que borren mi cuenta y todos mis datos",
+   "real": "derivacion",
+   "predicho": "derivacion",
+   "grupo": "derivacion",
+   "capa": 1,
+   "intencion": "edit_account",
+   "confianza": 0.7981,
+   "texto_propio": false
+  },
+  {
+   "texto": "Cómo hago para cambiar el correo de mi perfil",
+   "real": "derivacion",
+   "predicho": "copiloto",
+   "grupo": "derivacion",
+   "capa": 1,
+   "intencion": "switch_account",
+   "confianza": 0.7574,
+   "texto_propio": false
+  },
+  {
+   "texto": "Quiero hacer un pedido grande para mi tienda, con quién hablo",
+   "real": "derivacion",
+   "predicho": "copiloto",
+   "grupo": "derivacion",
+   "capa": 1,
+   "intencion": "delivery_period",
+   "confianza": 0.7266,
+   "texto_propio": false
+  },
+  {
+   "texto": "Ya no quiero recibir los correos de ustedes",
+   "real": "derivacion",
+   "predicho": "copiloto",
+   "grupo": "derivacion",
+   "capa": 1,
+   "intencion": "recover_password",
+   "confianza": 0.7119,
+   "texto_propio": true
+  },
+  {
+   "texto": "Me registré pero nunca me llegó el correo de confirmación",
+   "real": "derivacion",
+   "predicho": "copiloto",
+   "grupo": "derivacion",
+   "capa": 1,
+   "intencion": "edit_account",
+   "confianza": 0.754,
+   "texto_propio": false
+  }
+ ]
+}
