@@ -1,0 +1,25 @@
+{"_comentario": "Ejemplos de ENTRENAMIENTO para la clase nucleo_duro. Generados sinteticamente porque ningun corpus publico de atencion al cliente publica casos de salud o amenaza legal: son raros y sensibles. En una empresa real se tomarian de tickets historicos anonimizados y etiquetados por el equipo de soporte. Redaccion deliberadamente EXPLICITA: son los casos que la capa 0 debe atrapar. Los casos parafraseados viven en prueba.jsonl y sirven para medir si la capa semantica aporta algo sobre el filtro lexico."}
+{"texto": "Mi hija tuvo una reacción alérgica fuerte después de comer los frutos secos que les compré", "carril": "humano_exclusivo", "intencion": "queja", "subtipo": "salud"}
+{"texto": "El jabón me produjo una alergia en toda la cara, tengo la piel irritada", "carril": "humano_exclusivo", "intencion": "queja", "subtipo": "salud"}
+{"texto": "Buenas, me intoxiqué con el café que me llegó, llevo dos días con vómito", "carril": "humano_exclusivo", "intencion": "queja", "subtipo": "salud"}
+{"texto": "Tuve que ir a urgencias por consumir el producto que ustedes me vendieron", "carril": "humano_exclusivo", "intencion": "queja", "subtipo": "salud"}
+{"texto": "Mi hijo se tomó el detergente por accidente, estamos en la clínica", "carril": "humano_exclusivo", "intencion": "queja", "subtipo": "salud"}
+{"texto": "Me salió un sarpullido en los brazos después de usar el shampoo sólido", "carril": "humano_exclusivo", "intencion": "queja", "subtipo": "salud"}
+{"texto": "El médico dice que la diarrea que tengo puede ser por la miel que compré", "carril": "humano_exclusivo", "intencion": "queja", "subtipo": "salud"}
+{"texto": "Quiero reportar que el producto me causó una quemadura en la mano", "carril": "humano_exclusivo", "intencion": "queja", "subtipo": "salud"}
+{"texto": "Tengo náuseas desde que consumí el mix de frutos secos, quiero saber qué contiene", "carril": "humano_exclusivo", "intencion": "queja", "subtipo": "salud"}
+{"texto": "Si no me resuelven hoy mismo esto lo pasa a ver mi abogado", "carril": "humano_exclusivo", "intencion": "queja", "subtipo": "legal"}
+{"texto": "Voy a poner una queja formal ante la Superintendencia de Industria y Comercio", "carril": "humano_exclusivo", "intencion": "queja", "subtipo": "legal"}
+{"texto": "Esto es una estafa y los voy a demandar por publicidad engañosa", "carril": "humano_exclusivo", "intencion": "queja", "subtipo": "legal"}
+{"texto": "Ya radiqué una denuncia, necesito que me respondan por escrito", "carril": "humano_exclusivo", "intencion": "queja", "subtipo": "legal"}
+{"texto": "Voy a instaurar una acción de tutela porque llevan un mes sin responderme", "carril": "humano_exclusivo", "intencion": "queja", "subtipo": "legal"}
+{"texto": "Conozco el estatuto del consumidor y ustedes lo están incumpliendo", "carril": "humano_exclusivo", "intencion": "queja", "subtipo": "legal"}
+{"texto": "Mi abogada me dijo que tengo derecho a reembolso completo, procedan", "carril": "humano_exclusivo", "intencion": "devolucion", "subtipo": "legal"}
+{"texto": "Esto lo voy a denunciar ante la fiscalía por fraude", "carril": "humano_exclusivo", "intencion": "queja", "subtipo": "legal"}
+{"texto": "Compré un lote grande de productos para mi tienda y llegó todo dañado, son más de setecientos mil pesos", "carril": "humano_exclusivo", "intencion": "devolucion", "subtipo": "monto"}
+{"texto": "Necesito devolver el pedido completo, fueron novecientos mil pesos en mercancía", "carril": "humano_exclusivo", "intencion": "devolucion", "subtipo": "monto"}
+{"texto": "Es la tercera devolución que hago este mes y siempre es el mismo problema", "carril": "humano_exclusivo", "intencion": "devolucion", "subtipo": "reincidencia"}
+{"texto": "Ya van dos veces en menos de un mes que les devuelvo productos defectuosos", "carril": "humano_exclusivo", "intencion": "devolucion", "subtipo": "reincidencia"}
+{"texto": "El producto venía vencido y se lo di a mi mamá que está delicada de salud", "carril": "humano_exclusivo", "intencion": "queja", "subtipo": "salud"}
+{"texto": "Exijo una compensación económica por los daños que me causó su producto", "carril": "humano_exclusivo", "intencion": "queja", "subtipo": "legal"}
+{"texto": "El empaque decía sin gluten y mi hijo es celíaco, terminó en el hospital", "carril": "humano_exclusivo", "intencion": "queja", "subtipo": "salud"}

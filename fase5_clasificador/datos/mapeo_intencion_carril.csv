@@ -1,0 +1,28 @@
+intencion,categoria,ejemplos,carril_propuesto,carril_final,justificacion,revisado
+track_order,ORDER,896,automatico,automatico,Estado del pedido: dato transaccional que se resuelve con function calling,no
+delivery_period,DELIVERY,913,automatico,automatico,Plazo de entrega: la politica de envios lo establece,no
+delivery_options,DELIVERY,886,automatico,automatico,Opciones de envio: informacion publica de la politica,no
+check_refund_policy,REFUND,889,automatico,automatico,Consulta normativa pura: la seccion 1 de la politica la responde,no
+track_refund,REFUND,887,automatico,automatico,Estado de un reembolso ya aprobado: dato transaccional,no
+check_cancellation_fee,CANCEL,865,automatico,automatico,Consulta de una condicion escrita en la politica,no
+check_payment_methods,PAYMENT,897,automatico,automatico,"Informacion publica, sin decision asociada",no
+check_invoice,INVOICE,910,automatico,automatico,Consulta del estado de una factura existente,no
+get_invoice,INVOICE,885,automatico,automatico,"Entrega de un documento ya emitido, sin criterio de por medio",no
+contact_customer_service,CONTACT,906,automatico,automatico,"Informacion de canales. OJO: es la intencion donde los modelos fabricaron correos y telefonos (Fase 3, 8.3a); exige lista blanca de canales oficiales",no
+get_refund,REFUND,913,copiloto,copiloto,Solicitud de reembolso: compromete dinero de la empresa,no
+cancel_order,ORDER,889,copiloto,copiloto,Cancelar tiene efecto economico y depende del estado del pedido,no
+change_order,ORDER,901,copiloto,copiloto,Modificar un pedido en curso altera un compromiso ya adquirido,no
+change_shipping_address,SHIPPING,881,copiloto,copiloto,Cambiar destino de un envio en curso: riesgo operativo y de fraude,no
+set_up_shipping_address,SHIPPING,902,copiloto,copiloto,Afecta a donde se entrega la mercancia; se trata igual que el cambio,no
+payment_issue,PAYMENT,899,copiloto,copiloto,Problema con dinero del cliente: requiere verificacion humana,no
+complaint,FEEDBACK,904,copiloto,copiloto,Queja formal. Si la politica la cubre puede bajar a automatico; ante la duda se degrada al carril mas humano,no
+contact_human_agent,CONTACT,879,copiloto,copiloto,El cliente pide explicitamente una persona. La Fase 2 (3.5) establece que ese pedido se respeta sin obligarlo a insistir,no
+create_account,ACCOUNT,900,derivacion,derivacion,Gestion de cuentas: la atiende el area de cuentas,no
+delete_account,ACCOUNT,899,derivacion,derivacion,Gestion de cuentas: la atiende el area de cuentas,no
+edit_account,ACCOUNT,905,derivacion,derivacion,Gestion de cuentas: la atiende el area de cuentas,no
+switch_account,ACCOUNT,901,derivacion,derivacion,Gestion de cuentas: la atiende el area de cuentas,no
+recover_password,ACCOUNT,893,derivacion,derivacion,Autenticacion: flujo propio del area de cuentas,no
+registration_problems,ACCOUNT,899,derivacion,derivacion,Soporte tecnico de registro: area de cuentas,no
+place_order,ORDER,900,derivacion,derivacion,Venta: la atiende el area comercial,no
+newsletter_subscription,SUBSCRIPTION,894,derivacion,derivacion,Marketing: la atiende el area comercial,no
+review,FEEDBACK,891,derivacion,derivacion,Dejar resena: la recibe el area comercial,no

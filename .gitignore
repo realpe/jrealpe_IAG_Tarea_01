@@ -7,3 +7,7 @@ venv/
 
 # Indices del PoC de RAG: son derivados, se regeneran con "python rag.py --indexar"
 fase4_rag/indices/
+
+# Fase 5: el dataset publico no se versiona (6,9 MB, licencia CDLA-Sharing-1.0)
+fase5_clasificador/datos/bitext_es.parquet
+fase5_clasificador/modelo/

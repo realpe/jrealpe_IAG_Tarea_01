@@ -1,0 +1,85 @@
+{
+  "_nota": "DIRECTORIO DE CANALES OFICIALES DE ECOMARKET. Valores FICTICIOS: EcoMarket es un caso hipotetico del taller. En una implementacion real este archivo lo mantiene el area de servicio al cliente, se versiona aparte del codigo y su actualizacion es un cambio controlado, porque es la unica fuente de verdad contra la que se valida la salida del modelo.",
+  "_por_que_existe": "Fase 3, hallazgo 8.3a: qwen2.5:7b y mistral-small:24b fabricaron correos y telefonos de soporte. La causa raiz es que politicas.md no contiene ningun canal de contacto, asi que el modelo completo el vacio. Este archivo es a la vez el contexto que se le inyecta y la lista blanca contra la que se verifica lo que respondio.",
+  "_actualizado": "2026-09-19",
+
+  "areas": [
+    {
+      "id": "pedidos",
+      "nombre": "Seguimiento de pedidos y envios",
+      "asuntos": ["estado del pedido", "guia de rastreo", "retraso en la entrega", "cambio de direccion", "opciones de envio"],
+      "intenciones": ["track_order", "delivery_period", "delivery_options", "change_shipping_address", "set_up_shipping_address"],
+      "canales": [
+        {"tipo": "correo", "valor": "pedidos@ecomarket.co", "horario": "24/7, respuesta en 24 h habiles"},
+        {"tipo": "telefono", "valor": "+57 602 555 0110", "horario": "lunes a viernes 8:00-18:00, sabados 9:00-13:00"},
+        {"tipo": "whatsapp", "valor": "+57 320 555 0110", "horario": "lunes a sabado 8:00-20:00"}
+      ]
+    },
+    {
+      "id": "devoluciones",
+      "nombre": "Devoluciones y reembolsos",
+      "asuntos": ["devolver un producto", "estado del reembolso", "producto defectuoso", "producto equivocado"],
+      "intenciones": ["get_refund", "track_refund", "check_refund_policy", "cancel_order", "check_cancellation_fee"],
+      "canales": [
+        {"tipo": "correo", "valor": "devoluciones@ecomarket.co", "horario": "24/7, respuesta en 24 h habiles"},
+        {"tipo": "telefono", "valor": "+57 602 555 0120", "horario": "lunes a viernes 8:00-18:00"},
+        {"tipo": "formulario", "valor": "https://ecomarket.co/devoluciones", "horario": "24/7"}
+      ]
+    },
+    {
+      "id": "facturacion",
+      "nombre": "Facturacion y pagos",
+      "asuntos": ["factura electronica", "cobro duplicado", "medio de pago rechazado", "datos de facturacion"],
+      "intenciones": ["check_invoice", "get_invoice", "check_payment_methods", "payment_issue"],
+      "canales": [
+        {"tipo": "correo", "valor": "facturacion@ecomarket.co", "horario": "lunes a viernes, respuesta en 48 h habiles"},
+        {"tipo": "telefono", "valor": "+57 602 555 0130", "horario": "lunes a viernes 8:00-17:00"}
+      ]
+    },
+    {
+      "id": "cuentas",
+      "nombre": "Cuentas de usuario y acceso",
+      "asuntos": ["crear cuenta", "eliminar cuenta", "cambiar datos", "recuperar contrasena", "problemas de registro"],
+      "intenciones": ["create_account", "delete_account", "edit_account", "switch_account", "recover_password", "registration_problems"],
+      "canales": [
+        {"tipo": "formulario", "valor": "https://ecomarket.co/cuenta/ayuda", "horario": "24/7"},
+        {"tipo": "correo", "valor": "cuentas@ecomarket.co", "horario": "lunes a viernes, respuesta en 48 h habiles"}
+      ],
+      "_nota_habeas_data": "La eliminacion de cuenta involucra el derecho de supresion (Ley 1581 de 2012, art. 8). El area de cuentas es tambien el canal de habeas data; no se resuelve por el asistente."
+    },
+    {
+      "id": "comercial",
+      "nombre": "Ventas y suscripciones",
+      "asuntos": ["realizar un pedido", "disponibilidad de producto", "boletin", "pedidos corporativos"],
+      "intenciones": ["place_order", "newsletter_subscription", "review"],
+      "canales": [
+        {"tipo": "correo", "valor": "ventas@ecomarket.co", "horario": "lunes a viernes, respuesta en 24 h habiles"},
+        {"tipo": "whatsapp", "valor": "+57 320 555 0150", "horario": "lunes a sabado 8:00-20:00"}
+      ]
+    },
+    {
+      "id": "calidad",
+      "nombre": "Calidad y seguridad del producto",
+      "asuntos": ["reaccion adversa a un producto", "producto en mal estado", "alerta sanitaria", "etiquetado incorrecto"],
+      "intenciones": [],
+      "carril_obligatorio": "humano_exclusivo",
+      "canales": [
+        {"tipo": "telefono", "valor": "+57 602 555 0160", "horario": "lunes a domingo 7:00-21:00, atencion prioritaria"},
+        {"tipo": "correo", "valor": "calidad@ecomarket.co", "horario": "24/7, respuesta en 4 h"}
+      ],
+      "_nota": "El asistente NUNCA deriva aqui por su cuenta ni entrega estos datos como 'escribanos y le respondemos'. Un caso de salud lo toma un agente humano de inmediato; el canal existe para que ese agente lo escale internamente."
+    },
+    {
+      "id": "legal",
+      "nombre": "Juridica y proteccion al consumidor",
+      "asuntos": ["reclamacion formal", "notificacion judicial", "habeas data", "PQRS radicada"],
+      "intenciones": [],
+      "carril_obligatorio": "humano_exclusivo",
+      "canales": [
+        {"tipo": "correo", "valor": "juridica@ecomarket.co", "horario": "lunes a viernes, respuesta en 5 dias habiles"},
+        {"tipo": "direccion", "valor": "Calle 5 # 38-25, Cali, Valle del Cauca", "horario": "lunes a viernes 8:00-16:00"}
+      ],
+      "_nota": "Misma regla que calidad: lo toma un humano. El asistente no responde una amenaza legal aunque conozca el canal."
+    }
+  ]
+}

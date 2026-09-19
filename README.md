@@ -181,6 +181,7 @@ fine-tuning**. Justificación completa en la Fase 1.
 ├── fase1_seleccion_modelo.md      # Fase 1 — selección y justificación del modelo
 ├── fase2_riesgos_eticos.md        # Fase 2 — fortalezas, limitaciones y riesgos éticos
 ├── fase4_viabilidad_rag.md        # Fase 4 — viabilidad de RAG, datos, herramientas y flujos
+├── fase5_clasificador.md          # Fase 5 — clasificador de intención: experimento negativo
 ├── requirements.txt
 ├── docs/
 │   ├── arquitectura.png           # Render del diagrama (fuente Mermaid en el propio .md)
@@ -192,6 +193,20 @@ fine-tuning**. Justificación completa en la Fase 1.
 │   ├── rag.py                     # Fragmentación, embeddings, búsqueda y generación
 │   ├── evaluar.py                 # recall@k por estrategia sobre el conjunto oro
 │   └── outputs/                   # Informes de evaluación
+├── fase5_clasificador/            # Clasificador de dos capas (ejecutable)
+│   ├── capa0_reglas.py            # Filtro léxico determinista del núcleo duro
+│   ├── capa1_semantica.py         # Centroides de intención sobre embeddings
+│   ├── canales.py                 # Lista blanca de canales: derivación y validación de salida
+│   ├── construir_mapeo.py         # Traduce las 27 intenciones a carriles de EcoMarket
+│   ├── sonda_confianza.py         # Pone a prueba si la confianza mide algo
+│   ├── politica_v2.py             # Política corregida y curva de costo
+│   ├── evaluar_clasificador.py    # Matriz de confusión y enrutamiento inseguro
+│   └── datos/
+│       ├── canales_oficiales.json # Directorio de áreas y canales (ficticio, versionado)
+│       ├── mapeo_intencion_carril.csv
+│       ├── nucleo_duro_entrenamiento.jsonl
+│       ├── prueba.jsonl
+│       └── LEEME.md               # De dónde sale cada archivo; el parquet no se versiona
 └── fase3_prompts/                 # Fase 3 — ingeniería de prompts (ejecutable)
     ├── data/
     │   ├── pedidos.json           # 13 pedidos de prueba (base de datos simulada)
@@ -278,6 +293,33 @@ escalamiento a un agente humano.
 escenarios y aun así hubo tres fabricaciones, porque una condición de política inventada no contiene
 ningún identificador que validar. El detalle está en [`fase3_prompts/ANALISIS.md`](fase3_prompts/ANALISIS.md).
 
+### Segundo guardarraíl: la lista blanca de canales
+
+Una de esas fabricaciones sí era verificable, y la Fase 5 implementa el control.
+[`fase5_clasificador/canales.py`](fase5_clasificador/canales.py) extrae todo correo, teléfono y URL de
+la respuesta generada y los contrasta contra
+[`datos/canales_oficiales.json`](fase5_clasificador/datos/canales_oficiales.json), el directorio de
+áreas de EcoMarket. Reporta tres fallos distintos:
+
+| Fallo | Qué significa | Ejemplo real de la Fase 3 |
+| :--- | :--- | :--- |
+| **Fabricado** | El dato no existe en el directorio | `atencion@ecomarket.co`, `310 123 4567` |
+| **Marcador sin llenar** | El modelo declara que no tiene el dato y entrega la plantilla rota | `[dirección de correo electrónico]` |
+| **Canal reservado** | El dato existe, pero es de un área que el asistente no ofrece | `calidad@ecomarket.co` |
+
+La referencia legítima es el directorio **unido a lo que el contexto de ese turno contenía**: la URL de
+rastreo de un pedido llega por *function calling* y es distinta en cada pedido, así que ninguna lista
+estática puede enumerarla.
+
+El directorio también sirve para **derivar en un turno** lo que otra área atiende —cuentas, facturación,
+comercial— en lugar de mandarlo a una cola. Dos áreas quedan excluidas de esa derivación: `calidad` y
+`legal` llevan `carril_obligatorio: humano_exclusivo`, porque un cliente que reporta una reacción
+alérgica necesita que alguien lo llame y no una dirección de correo.
+
+```bash
+cd fase5_clasificador && python canales.py
+```
+
 ---
 
 ## Resultados de la Fase 3
@@ -356,3 +398,70 @@ umbral de similitud no sirve como control de calidad**.
 fragmentos de seguridad —prohibiciones y criterios de escalamiento— son los que peor recupera una
 búsqueda semántica, porque una prohibición no se parece a la petición que debe bloquear. Lo crítico va
 en el system prompt y en filtros deterministas, no en el recuperador.
+
+---
+
+## Fase 5 — Clasificador de intención: un experimento negativo
+
+[`fase5_clasificador.md`](fase5_clasificador.md) implementa la caja que la Fase 1 dibujó y la mide. El
+prototipo está en [`fase5_clasificador/`](fase5_clasificador/) y combina dos capas: reglas léxicas
+deterministas para el núcleo duro, y centroides de intención sobre embeddings para el resto.
+
+**El clasificador no funciona, y el valor del ejercicio está en saber por qué.**
+
+```bash
+cd fase5_clasificador
+python capa1_semantica.py construir
+python sonda_confianza.py
+python politica_v2.py
+```
+
+### La transferencia del dataset falló, y está cuantificada
+
+Los centroides se entrenaron con [Bitext Customer Support](https://huggingface.co/datasets/bitext/Bitext-customer-support-llm-chatbot-training-dataset)
+en español: 24.184 ejemplos, 27 intenciones, licencia CDLA-Sharing-1.0.
+
+| Grupo | mediana de similitud | p25 |
+| :--- | :---: | :---: |
+| Ejemplos del propio Bitext, no usados en los centroides | **0,857** | 0,814 |
+| Casos de prueba de EcoMarket | — | máximo absoluto **0,802** |
+
+**Ningún caso de prueba alcanza el cuartil inferior de la distribución de entrenamiento.** El corpus es
+comercio electrónico genérico traducido del inglés; los casos son español colombiano natural. Aun sin
+exigir ningún margen de confianza, el carril automático solo acierta **3 de 12**.
+
+*Existe un dataset público* no es lo mismo que *existen datos de entrenamiento utilizables*. Esa
+distinción, medida en vez de supuesta, es la justificación de por qué una empresa real necesita
+etiquetar sus propios tickets.
+
+### El núcleo duro no se detecta por texto
+
+| Grupo | Capa 0 léxica | Capa semántica |
+| :--- | :---: | :---: |
+| Núcleo duro **explícito** | **6/6** | — |
+| Núcleo duro **parafraseado** | **0/9** | **0/9** |
+
+*"Mi bebé se llevó el producto a la boca y lleva toda la tarde llorando y devolviendo"* obtuvo **0,774
+de confianza** clasificado como `delivery_period`. El mensaje está *dentro* de distribución como texto
+—es una queja sobre un producto— y fuera como carril. Lo que lo distingue es que hubo daño a una
+persona, y eso es un detalle del contenido, no el tema que el embedding codifica.
+
+La política corregida logra lo único que podía lograr: **cero casos de salud en el carril automático**,
+a costa de 4,6 puntos de exactitud y de enviar 34 de 37 casos a revisión humana.
+
+### La lista blanca cierra el hallazgo 8.3a
+
+La causa de los correos fabricados no era el modelo: **`politicas.md` no contenía ningún canal de
+contacto**. El prompt pedía orientar al cliente y el contexto no tenía con qué.
+[`canales.py`](fase5_clasificador/canales.py) inyecta un directorio oficial y valida la salida contra
+él; el mecanismo está descrito arriba, en [Segundo guardarraíl](#segundo-guardarra%C3%ADl-la-lista-blanca-de-canales).
+Medido sobre las respuestas reales de la Fase 3:
+
+| Corrida | Fabricado | Marcador sin llenar |
+| :--- | ---: | ---: |
+| iter2 · `qwen2.5:7b` | 1 | 4 |
+| iter2 · `mistral-small:24b` | 2 | 0 |
+| **iter2 · `qwen3:14b`** | **10** | 2 |
+
+El modelo de referencia fabrica cinco veces más que el de 7B. Con el hallazgo 8.6, son dos casos
+independientes donde **el modelo más grande se ve mejor y es peor**.

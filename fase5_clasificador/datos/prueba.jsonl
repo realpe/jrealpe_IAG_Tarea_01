@@ -1,0 +1,50 @@
+{"_comentario": "CONJUNTO DE PRUEBA. Dos campos distintos, porque son dos garantias distintas: 'etiqueta_revisada' = Jose Luis leyo el caso y confirmo que el carril asignado es correcto (el ground truth es suyo). 'texto_propio' = el texto lo redacto Jose Luis y no el asistente de IA (independencia de fuente). Lo segundo importa porque medir un clasificador contra el mismo autor que genero su entrenamiento infla el resultado; lo primero importa porque una etiqueta equivocada corrompe la medicion entera."}
+{"_grupo": "El bloque 'nucleo_duro_parafraseado' es el nucleo del experimento: expresa riesgo de salud o legal EVITANDO deliberadamente los terminos de la capa 0. Si la capa semantica no los atrapa, el hallazgo es que el nucleo duro no se puede detectar por texto y refuerza que ese carril no debe automatizarse."}
+
+{"texto": "Buenas tardes, quiero saber dónde se encuentra mi pedido", "carril": "automatico", "intencion": "estado_pedido", "grupo": "comun", "etiqueta_revisada": true, "texto_propio": true}
+{"texto": "Hace cinco días compré y todavía no general el envio", "carril": "automatico", "intencion": "estado_pedido", "grupo": "comun", "etiqueta_revisada": true, "texto_propio": true}
+{"texto": "Me pueden dar el número de guía dela compra 12345", "carril": "automatico", "intencion": "estado_pedido", "grupo": "comun", "etiqueta_revisada": true, "texto_propio": true}
+{"texto": "¿Cuándo llega mi pedido?", "carril": "automatico", "intencion": "estado_pedido", "grupo": "comun", "etiqueta_revisada": true, "texto_propio": true}
+{"texto": "El pedido esta retrasado, qué pasó", "carril": "automatico", "intencion": "estado_pedido", "grupo": "comun", "etiqueta_revisada": true, "texto_propio": true}
+{"texto": "Cuántos días tengo para devolver un producto", "carril": "automatico", "intencion": "devolucion", "grupo": "comun", "etiqueta_revisada": true, "texto_propio": false}
+{"texto": "Quiero devolver un termo que no he usado", "carril": "automatico", "intencion": "devolucion", "grupo": "comun", "etiqueta_revisada": true, "texto_propio": true}
+{"texto": "Los paños me llegaron rotos, quiero cambio", "carril": "automatico", "intencion": "devolucion", "grupo": "comun", "etiqueta_revisada": true, "texto_propio": false}
+{"texto": "Desde que valor de compra hay envío gratis", "carril": "automatico", "intencion": "otro", "grupo": "comun", "etiqueta_revisada": true, "texto_propio": true}
+{"texto": "Cuánto se demora el reembolso", "carril": "automatico", "intencion": "devolucion", "grupo": "comun", "etiqueta_revisada": true, "texto_propio": true}
+{"texto": "Me llegó un producto que no pedí", "carril": "automatico", "intencion": "devolucion", "grupo": "comun", "etiqueta_revisada": true, "texto_propio": false}
+{"texto": "Estoy molesto, el pedido llegó tres días tarde y nadie me notifico", "carril": "automatico", "intencion": "queja", "grupo": "comun", "etiqueta_revisada": true, "texto_propio": true}
+
+{"texto": "Ya pasaron los treinta días pero necesito devolverlo", "carril": "copiloto", "intencion": "devolucion", "grupo": "comun", "etiqueta_revisada": true, "texto_propio": true}
+{"texto": "Me pueden hacer una excepción con la política de devoluciones", "carril": "copiloto", "intencion": "devolucion", "grupo": "comun", "etiqueta_revisada": true, "texto_propio": false}
+{"texto": "Abrí el shampoo sólido pero no me sirvió, ¿hay algo que puedan hacer?", "carril": "copiloto", "intencion": "devolucion", "grupo": "comun", "etiqueta_revisada": true, "texto_propio": false}
+{"texto": "Por la demora quisiera algún tipo de consideración de su parte", "carril": "copiloto", "intencion": "queja", "grupo": "comun", "etiqueta_revisada": true, "texto_propio": false}
+{"texto": "El café no sabía como esperaba, ¿me pueden cambiar por otro?", "carril": "copiloto", "intencion": "devolucion", "grupo": "comun", "etiqueta_revisada": true, "texto_propio": false}
+{"texto": "Compré para regalo y la persona no lo quiso, ya pasó el plazo", "carril": "copiloto", "intencion": "devolucion", "grupo": "comun", "etiqueta_revisada": true, "texto_propio": false}
+{"texto": "Es la segunda vez que me pasa lo mismo con ustedes, espero una solución real", "carril": "copiloto", "intencion": "queja", "grupo": "comun", "etiqueta_revisada": true, "texto_propio": true}
+{"texto": "Quiero devolver todos mis pedidos", "carril": "copiloto", "intencion": "devolucion", "grupo": "comun", "etiqueta_revisada": true, "texto_propio": true}
+{"texto": "Perdí la factura y requiero devolver los articulos", "carril": "copiloto", "intencion": "devolucion", "grupo": "comun", "etiqueta_revisada": true, "texto_propio": true}
+{"texto": "El producto está bien pero me arrepentí de la compra", "carril": "copiloto", "intencion": "devolucion", "grupo": "comun", "etiqueta_revisada": true, "texto_propio": false}
+
+{"texto": "Después de comerme las almendras terminé en urgencias", "carril": "humano_exclusivo", "intencion": "queja", "grupo": "nucleo_duro_evidente", "etiqueta_revisada": true, "texto_propio": false}
+{"texto": "El detergente me causó una quemadura en las manos", "carril": "humano_exclusivo", "intencion": "queja", "grupo": "nucleo_duro_evidente", "etiqueta_revisada": true, "texto_propio": false}
+{"texto": "Voy a demandarlos si no me responden", "carril": "humano_exclusivo", "intencion": "queja", "grupo": "nucleo_duro_evidente", "etiqueta_revisada": true, "texto_propio": false}
+{"texto": "Esto lo llevo a la Superintendencia", "carril": "humano_exclusivo", "intencion": "queja", "grupo": "nucleo_duro_evidente", "etiqueta_revisada": true, "texto_propio": false}
+{"texto": "Mi abogado ya está enterado del caso", "carril": "humano_exclusivo", "intencion": "queja", "grupo": "nucleo_duro_evidente", "etiqueta_revisada": true, "texto_propio": false}
+{"texto": "Me dio una alergia horrible con el jabón artesanal", "carril": "humano_exclusivo", "intencion": "queja", "grupo": "nucleo_duro_evidente", "etiqueta_revisada": true, "texto_propio": false}
+
+{"texto": "Desde que usé la crema tengo la piel roja y fue necesario salir en la noche", "carril": "humano_exclusivo", "intencion": "queja", "grupo": "nucleo_duro_parafraseado", "etiqueta_revisada": true, "texto_propio": true}
+{"texto": "Mi bebé se llevó el producto a la boca y duro la tarde llorando, debi llevarlo corriendo", "carril": "humano_exclusivo", "intencion": "queja", "grupo": "nucleo_duro_parafraseado", "etiqueta_revisada": true, "texto_propio": true}
+{"texto": "Comí eso y pasé la noche muy mal del estómago, tenia que tener algo", "carril": "humano_exclusivo", "intencion": "queja", "grupo": "nucleo_duro_parafraseado", "etiqueta_revisada": true, "texto_propio": true}
+{"texto": "Voy a tener que buscar asesoría de alguien que sepa de leyes para esto", "carril": "humano_exclusivo", "intencion": "queja", "grupo": "nucleo_duro_parafraseado", "etiqueta_revisada": true, "texto_propio": false}
+{"texto": "Esto lo voy a poner en manos de quien corresponda ante las autoridades", "carril": "humano_exclusivo", "intencion": "queja", "grupo": "nucleo_duro_parafraseado", "etiqueta_revisada": true, "texto_propio": false}
+{"texto": "Mi señora quedó bastante mal después de probar eso y tuvimos que pedir servicio", "carril": "humano_exclusivo", "intencion": "queja", "grupo": "nucleo_duro_parafraseado", "etiqueta_revisada": true, "texto_propio": true}
+{"texto": "Tengo el cuerpo brotado y el único cambio fue ese producto", "carril": "humano_exclusivo", "intencion": "queja", "grupo": "nucleo_duro_parafraseado", "etiqueta_revisada": true, "texto_propio": false}
+{"texto": "Ya hablé con alguien que me está asesorando sobre mis derechos como comprador", "carril": "humano_exclusivo", "intencion": "queja", "grupo": "nucleo_duro_parafraseado", "etiqueta_revisada": true, "texto_propio": false}
+{"texto": "El producto trae algo que a mi hijo le hace daño y no venía advertido en la etiqueta", "carril": "humano_exclusivo", "intencion": "queja", "grupo": "nucleo_duro_parafraseado", "etiqueta_revisada": true, "texto_propio": false}
+
+{"texto": "No me acuerdo de la contraseña y no puedo entrar a mi cuenta", "carril": "derivacion", "intencion": "cuenta", "grupo": "derivacion", "etiqueta_revisada": true, "texto_propio": false}
+{"texto": "Quiero que borren mi cuenta y todos mis datos", "carril": "derivacion", "intencion": "cuenta", "grupo": "derivacion", "etiqueta_revisada": true, "texto_propio": false}
+{"texto": "Cómo hago para cambiar el correo de mi perfil", "carril": "derivacion", "intencion": "cuenta", "grupo": "derivacion", "etiqueta_revisada": true, "texto_propio": false}
+{"texto": "Quiero hacer un pedido grande para mi tienda, con quién hablo", "carril": "derivacion", "intencion": "comercial", "grupo": "derivacion", "etiqueta_revisada": true, "texto_propio": false}
+{"texto": "Ya no quiero recibir los correos de ustedes", "carril": "derivacion", "intencion": "comercial", "grupo": "derivacion", "etiqueta_revisada": true, "texto_propio": true}
+{"texto": "Me registré pero nunca me llegó el correo de confirmación", "carril": "derivacion", "intencion": "cuenta", "grupo": "derivacion", "etiqueta_revisada": true, "texto_propio": false}
