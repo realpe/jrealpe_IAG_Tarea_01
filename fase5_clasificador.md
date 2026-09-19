@@ -47,6 +47,7 @@ después, la medición no correspondería a lo que el sistema hace en producció
 | `brecha_dominio.py` | Compara la distribución de entrenamiento con la de los casos reales |
 | `politica_v2.py` | Las tres políticas de decisión, su comparación y la curva de costo |
 | `evaluar_clasificador.py` | Matriz de confusión y métrica de enrutamiento inseguro |
+| `guardarrail_plazos.py` | Tercer guardarraíl: verifica número **y unidad** de los plazos citados |
 
 ---
 
@@ -355,7 +356,90 @@ compromete dinero de uno que no.
 
 ---
 
-## 8. Qué haría falta para que esto funcione
+## 8. Lo que apareció al usar el sistema
+
+Las secciones anteriores miden. Esta recoge lo que salió de **procesar casos nuevos uno por uno** en
+la consola del banco de pruebas, que resultó ser una fuente de hallazgos distinta de la medición
+agregada: tres defectos que ninguna métrica sobre 43 casos habría mostrado, porque no son cuestión de
+frecuencia sino de qué ocurre exactamente en un caso concreto.
+
+### 8.1 Arreglar la fabricación de canales habilitó la evasión
+
+Primer caso procesado, sin número de pedido:
+
+> *Cliente:* «hola, aún no tengo mi paquete»
+>
+> *Asistente:* «Para consultar el estado de su paquete, puede contactarnos por correo a
+> pedidos@ecomarket.co o llamar al +57 602 555 0110.»
+
+Los canales son auténticos y el guardarraíl los aprobó. Pero el cliente no preguntó por un canal:
+**el asistente tenía un solo dato faltante —el número de pedido— y en lugar de pedirlo, derivó.**
+
+La causa es directa. La lista blanca de §4 resolvió que el modelo inventara canales, y al hacerlo le
+entregó una lista de salidas de emergencia. **Una corrección creó un modo de fallo nuevo**, y ninguno
+de los dos guardarraíles lo ve, porque los datos son correctos y lo que falla es la decisión.
+
+La corrección va en el prompt, y el orden de las instrucciones importa: primero *pide el dato que te
+falta*, y solo después, como último recurso, *ofrece un canal*.
+
+### 8.2 El guardarraíl marcó la palabra inocente y dejó pasar el error real
+
+Segundo caso:
+
+> *Cliente:* «el paquete está abierto»
+>
+> *Asistente:* «…las devoluciones deben realizarse dentro de los **30 días hábiles** desde la
+> recepción del producto.»
+
+El guardarraíl reportó un hallazgo: *«posible condición de política fabricada: 'abierto' no aparece en
+el contexto»*. Falso positivo — esa palabra la escribió **el cliente**, y el verificador solo recibía
+el pedido, las políticas y los canales. Un modelo que repite lo que dijo el cliente no fabrica nada.
+
+Y no reportó lo que sí importaba. La política dice **30 días calendario**; el modelo escribió **30 días
+hábiles**. Treinta días hábiles son casi seis semanas. Es una condición de política fabricada con
+consecuencia económica directa, y pasó desapercibida porque no hay ningún identificador inventado: el
+número es correcto y **cambió una sola palabra**.
+
+Dos correcciones:
+
+| Defecto | Corrección |
+| :--- | :--- |
+| El mensaje del cliente no contaba como contexto | Se incluye en la referencia del verificador |
+| Ningún control miraba las unidades de plazo | Nuevo módulo [`guardarrail_plazos.py`](fase5_clasificador/guardarrail_plazos.py) |
+
+El control nuevo es literal: todo plazo citado debe aparecer en el contexto con el mismo número **y la
+misma unidad**. Si el contexto usa otra unidad para ese número, la alerta lo dice, porque contradecir
+la política vigente es peor que inventar un plazo inexistente.
+
+> Es el hallazgo II con una diferencia que lo hace barato de atrapar: **aquí el error sí es léxico.**
+> «Calendario» y «hábiles» son dos palabras distintas y la correcta estaba escrita en el contexto.
+> Su límite queda declarado en el propio módulo: solo cubre plazos en días.
+
+### 8.3 La taxonomía del dataset no cubre casos reales
+
+Tercer caso:
+
+> *Cliente:* «me llegó el pedido de otra persona»
+
+Las cinco candidatas quedaron entre 0,680 y 0,725 —ganó `delivery_period`— y la razón es que
+**ninguna de las 27 intenciones del dataset describe esta situación.** El clasificador no estaba
+eligiendo, estaba repartiendo entre opciones igualmente inadecuadas.
+
+El caso además tiene una dimensión que ninguna de esas intenciones contempla: el cliente tiene en su
+poder el paquete de un tercero, con su nombre y su dirección. Eso es tratamiento de datos personales
+de otra persona bajo la Ley 1581 y no debería resolverlo una plantilla. El sistema lo envió a copiloto,
+que es el carril correcto, **pero por el margen bajo y no porque entendiera el problema**.
+
+### Por qué esta sección existe
+
+Los tres hallazgos salieron de usar el sistema, no de medirlo, y los tres apuntan en la misma
+dirección que el resto de la fase: **cada control tiene un alcance, y el alcance solo se descubre
+cuando algo lo cruza.** Construir la consola no era un extra de presentación; fue el instrumento que
+produjo estos tres.
+
+---
+
+## 9. Qué haría falta para que esto funcione
 
 Por orden de impacto esperado, y ninguno cuesta más que los demás juntos:
 
@@ -376,7 +460,7 @@ cambio controlado. Sigue siendo la única garantía del carril crítico.
 
 ---
 
-## 9. Reproducción
+## 10. Reproducción
 
 ```bash
 ollama pull nomic-embed-text
@@ -390,6 +474,7 @@ python brecha_dominio.py          # ¿coincide el dominio de entrenamiento con e
 python politica_v2.py             # comparación v1/v2/v3 y curva de costo
 python evaluar_clasificador.py    # matriz de confusión
 python canales.py                 # lista blanca y validación de salida
+python guardarrail_plazos.py      # verificación de plazos citados
 ```
 
 El dataset (`datos/bitext_es.parquet`, 6,9 MB) no se versiona en el repositorio. Se descarga de
@@ -403,7 +488,7 @@ resultados.
 
 ---
 
-## 10. Limitaciones declaradas
+## 11. Limitaciones declaradas
 
 **La independencia del conjunto de prueba es parcial, y el archivo lo declara por separado en dos
 campos** porque son dos garantías distintas:

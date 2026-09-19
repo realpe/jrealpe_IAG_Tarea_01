@@ -1,1 +1,7 @@
+# Fases 3 y 4
 requests>=2.31.0
+
+# Fase 5 — clasificador de intencion
+numpy>=1.24
+pandas>=2.0
+pyarrow>=14.0      # lectura del dataset Bitext en formato parquet

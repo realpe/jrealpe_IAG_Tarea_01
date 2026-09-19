@@ -202,6 +202,7 @@ fine-tuning**. Justificación completa en la Fase 1.
 │   ├── brecha_dominio.py          # Entrenamiento vs. dominio real, medido
 │   ├── politica_v2.py             # Política corregida y curva de costo
 │   ├── evaluar_clasificador.py    # Matriz de confusión y enrutamiento inseguro
+│   ├── guardarrail_plazos.py      # Tercer guardarraíl: número y unidad de los plazos
 │   └── datos/
 │       ├── canales_oficiales.json # Directorio de áreas y canales (ficticio, versionado)
 │       ├── mapeo_intencion_carril.csv
@@ -478,6 +479,29 @@ antes de medir: **cero casos de salud en el carril automático** y la mejor exac
 Que el clasificador confunda `delivery_period` con `check_refund_policy` no le cuesta nada a EcoMarket,
 porque las dos se responden igual. Que confunda `check_refund_policy` con `get_refund` sí, porque una
 consulta la política y la otra compromete dinero. Las políticas anteriores penalizaban las dos igual.
+
+### Tres hallazgos que salieron de usar el sistema, no de medirlo
+
+Procesar casos nuevos uno a uno —en la consola del banco de pruebas, fuera de este repositorio—
+produjo tres defectos que ninguna métrica sobre 43 casos habría mostrado. Están en
+[`fase5_clasificador.md`](fase5_clasificador.md), sección 8:
+
+**La corrección de un fallo habilitó otro.** La lista blanca resolvió que el modelo inventara canales,
+y con eso le dio una salida de emergencia: ante *«aún no tengo mi paquete»* sin número de pedido,
+respondió con un teléfono en lugar de pedir el dato que le faltaba.
+
+**El guardarraíl marcó la palabra inocente y dejó pasar el error real.** Reportó que *«abierto»* no
+estaba en el contexto —la había escrito el cliente— y no vio que la respuesta decía **30 días hábiles**
+donde la política dice **30 días calendario**. Casi seis semanas de diferencia, una sola palabra
+cambiada. De ahí salió [`guardarrail_plazos.py`](fase5_clasificador/guardarrail_plazos.py), que
+verifica número **y unidad**.
+
+**La taxonomía del dataset no cubre casos reales.** Ninguna de las 27 intenciones describe *«me llegó
+el pedido de otra persona»*, y las cinco candidatas quedaron entre 0,680 y 0,725: el clasificador no
+estaba eligiendo, estaba repartiendo.
+
+Los tres apuntan a lo mismo que el resto de la fase: **cada control tiene un alcance, y el alcance solo
+se descubre cuando algo lo cruza.**
 
 ### La lista blanca cierra el hallazgo 8.3a
 
